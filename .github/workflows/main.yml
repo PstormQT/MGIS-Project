@@ -29,7 +29,7 @@ jobs:
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_TARGET: "/home/ptd7904/MGIS445/project/"
+          SFTP_TARGET: "/home/ptd7904/www/MGIS445/project/"
           SFTP_PORT: ${{ secrets.SFTP_PORT }}
         run: |
           echo "Starting deployment..."
