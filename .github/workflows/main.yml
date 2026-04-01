@@ -29,11 +29,12 @@ jobs:
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
-          SFTP_TARGET: :"/home/ptd7904/MGIS445/project/""
+          SFTP_TARGET: "/home/ptd7904/MGIS445/project/"
           SFTP_PORT: ${{ secrets.SFTP_PORT }}
         run: |
-          echo "Starting deployment..."
+          echo "Starting deployment to $SFTP_HOST:$SFTP_TARGET ..."
           lftp -u $SFTP_USERNAME,$SFTP_PASSWORD -p $SFTP_PORT sftp://$SFTP_HOST <<EOF
-          mirror -R --delete --verbose ./ $SFTP_TARGET
+          # mirror local ./ directory to remote target, creating directories and showing each file
+          mirror -R --delete --verbose --only-newer --create-dirs ./ $SFTP_TARGET
           bye
           EOF
