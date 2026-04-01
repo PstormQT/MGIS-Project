@@ -1,0 +1,48 @@
+name: SFTP Deploy on Changes
+
+on:
+  push:
+    branches:
+      - main  # Only triggers on main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check for changes
+        id: changes
+        run: |
+          # Get list of files changed in this push
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No changes detected, skipping deploy."
+            echo "deploy=false" >> $GITHUB_ENV
+          else
+            echo "Changes detected, deploy will run."
+            echo "deploy=true" >> $GITHUB_ENV
+          fi
+
+      - name: Install lftp
+        if: env.deploy == 'true'
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy via SFTP
+        if: env.deploy == 'true'
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_TARGET: ${{ secrets.SFTP_TARGET }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+        run: |
+          echo "Starting deployment..."
+          lftp -u $SFTP_USERNAME,$SFTP_PASSWORD -p $SFTP_PORT sftp://$SFTP_HOST <<EOF
+          mirror -R --delete --verbose ./ $SFTP_TARGET
+          bye
+          EOF
