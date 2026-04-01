@@ -12,22 +12,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-
-      - name: Check for changes
-        id: changes
-        run: |
-          # Get list of files changed in this push
-          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
-          echo "Changed files:"
-          echo "$CHANGED_FILES"
-          if [ -z "$CHANGED_FILES" ]; then
-            echo "No changes detected, skipping deploy."
-            echo "deploy=false" >> $GITHUB_ENV
-          else
-            echo "Changes detected, deploy will run."
-            echo "deploy=true" >> $GITHUB_ENV
-          fi
-
+        
       - name: Install lftp
         if: env.deploy == 'true'
         run: sudo apt-get update && sudo apt-get install -y lftp
