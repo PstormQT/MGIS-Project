@@ -39,7 +39,7 @@ function callToDB(shirtID) {
 
             const countDisplay = document.querySelector("#count");
             if (countDisplay) {
-                countDisplay.value = data.count; 
+                countDisplay.textContent = data.count;
             }
         })
         .catch(error => {
