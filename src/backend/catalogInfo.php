@@ -35,12 +35,12 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
 
     $shirtID = $_GET['shirtID'] ?? "";
 
-    // if (empty($shirtID)) {
-    //     echo json_encode(["error" => "Missing shirtID", "count" => 0]);
-    //     exit;
-    // }
+    if (empty($shirtID)) {
+        echo json_encode(["error" => "Missing shirtID", "count" => 0]);
+        exit;
+    }
 
-    // $count = mockDB($shirtID);
+    $count = mockDB($shirtID);
 
     echo json_encode([
         "count" => $shirtID,
