@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  # Only triggers on main branch
+      - Peter-branch
 
 jobs:
   deploy:
