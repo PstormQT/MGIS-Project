@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $count = mockDB($shirtID);
 
     echo json_encode([
-        "count" => $shirtID,
+        "count" => $count,
     ]);
 
     exit;
