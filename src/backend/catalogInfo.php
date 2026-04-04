@@ -5,7 +5,7 @@ require "connection.php";
 function getCountFromDB($shirtID) {
     $conn = openConnection();
 
-    $sql = "SELECT ShirtID, ShirtCT FROM shirts WHERE ShirtID = ?";
+    $sql = "SELECT ShirtID, Count FROM ShirtInventory WHERE ShirtID = ?";
 
     $stmt = mysqli_prepare($conn, $sql);
 
@@ -19,7 +19,7 @@ function getCountFromDB($shirtID) {
     $result = mysqli_stmt_get_result($stmt);
 
     if ($row = mysqli_fetch_assoc($result)) {
-        return $row['ShirtCT'];
+        return $row['Count'];
     } else {
         return 0;
     }
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
         exit;
     }
 
-    $count = mockDB($shirtID);
+    $count = getCountFromDB($shirtID);
 
     echo json_encode([
         "count" => $count,
