@@ -4,61 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Title</title>
-    <link rel= "stylesheet" href= "design-space.css">
+    <link rel="stylesheet" href="design-space.css">
 </head>
 
 <body>
     
-    <div class = "shirt-container">
+    <div class="shirt-container">
         <img class="base" src="asset/shirt-color/shirt-blue.png">
         <img class="design" src="asset/print-design/design-1.png">
     </div>
 
-    <!-- Order needed to be ordered -->
-    <label for = "count">Count: </label>
-    <input id = "count" type = "number" value = "1" min = "1" max = "999">
+    <!-- Display Shirt amount -->
+    <label for="count">In Stock: </label>
+    <span id="count">—</span>
     <br>
+
+    <!-- Quantity input -->
+    <label for="quantity">Quantity: </label>
+    <input id="quantity" type="number" value="1" min="1" max="999">
+    <br>
+
     <!-- Choosing size option -->
-    <label for = "size">Size: </label>
-    <select name = "size" id = "size">
-        <option value = "3XS">3XS</option>
-        <option value = "2XS">2XS</option>
-        <option value = "XS">XS</option>
-        <option value = "S">S</option>
-        <option value = "M">M</option>
-        <option value = "L">L</option>
-        <option value selected = "XL">XL</option>
-        <option value = "2XL">2XL</option>
-        <option value = "3XL">3XL</option>
-    </select>
-    <br>
-    <!-- Choosing color option -->
-     <label for = "color">Color: </label>
-     <select name = "color" id = "color">
-        <option value = "blue">Blue</option>
-        <option value = "green">Green</option>
-        <option value = "pink">Pink</option>
-        <option value = "red">Red</option>
-    </select>
-    <br>
-    <!-- Choosing design option -->
-     <label for = "design">Design: </label>
-     <select name = "design" id = "design">
-        <option value = "Design-1">Design 1</option>
-        <option value = "Design-2">Design 2</option>
-        <option value = "Design-3">Design 3</option>
-        <option value = "Design-4">Design 4</option>
-        <option value = "Design-5">Design 5</option>
-        <option value = "Design-6">Design 6</option>
-        <option value = "Design-7">Design 7</option>
-        <option value = "Design-8">Design 8</option>
-        <option value = "Design-9">Design 9</option>
+    <label for="size">Size: </label>
+    <select name="size" id="size">
+        <option value="2XS">2XS</option>
+        <option value="XS">XS</option>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL" selected>XL</option>
+        <option value="2XL">2XL</option>
+        <option value="3XL">3XL</option>
     </select>
     <br>
 
-    <!-- submit button -->
-    
+    <!-- Choosing color option -->
+    <label for="color">Color: </label>
+    <select name="color" id="color">
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+        <option value="pink">Pink</option>
+        <option value="red">Red</option>
+    </select>
+    <br>
+
+    <!-- Choosing design option -->
+    <label for="design">Design: </label>
+    <select name="design" id="design">
+        <option value="Design-1">Design 1</option>
+        <option value="Design-2">Design 2</option>
+        <option value="Design-3">Design 3</option>
+        <option value="Design-4">Design 4</option>
+        <option value="Design-5">Design 5</option>
+        <option value="Design-6">Design 6</option>
+        <option value="Design-7">Design 7</option>
+        <option value="Design-8">Design 8</option>
+        <option value="Design-9">Design 9</option>
+    </select>
+    <br>
+
+    <!-- Submit button -->
+    <button id="submit">Add to Cart</button>
 
     <script src="design-page.js"></script>
 </body>
-</html> 
+</html>
