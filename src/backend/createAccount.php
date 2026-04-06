@@ -33,7 +33,7 @@ function createAccountInDB($data) {
         $billingID = insertAddress(
             $conn,
             $data['billing_AddressLine1'],
-            $data['billing_AddressLine2'],
+            $data['billing_AddressLine2'] ?? '',
             $data['billing_City'],
             $data['billing_State'],
             $data['billing_ZipCode']
@@ -41,22 +41,32 @@ function createAccountInDB($data) {
 
         // Insert Shipping Address
         $shippingID = $billingID; // default to billingID
-        if (
-            $data['shipping_AddressLine1'] !== $data['billing_AddressLine1'] ||
-            $data['shipping_AddressLine2'] !== $data['billing_AddressLine2'] ||
-            $data['shipping_City'] !== $data['billing_City'] ||
-            $data['shipping_State'] !== $data['billing_State'] ||
-            $data['shipping_ZipCode'] !== $data['billing_ZipCode']
-        ) {
-            // Only insert if shipping is different
-            $shippingID = insertAddress(
-                $conn,
-                $data['shipping_AddressLine1'],
-                $data['shipping_AddressLine2'],
-                $data['shipping_City'],
-                $data['shipping_State'],
-                $data['shipping_ZipCode']
+
+        // Check if shipping fields exist and are different
+        $shippingProvided = !empty($data['shipping_AddressLine1']) ||
+                            !empty($data['shipping_City']) ||
+                            !empty($data['shipping_State']) ||
+                            !empty($data['shipping_ZipCode']);
+
+        if ($shippingProvided) {
+            $isDifferent = (
+                ($data['shipping_AddressLine1'] ?? '') !== $data['billing_AddressLine1'] ||
+                ($data['shipping_AddressLine2'] ?? '') !== ($data['billing_AddressLine2'] ?? '') ||
+                ($data['shipping_City'] ?? '') !== $data['billing_City'] ||
+                ($data['shipping_State'] ?? '') !== $data['billing_State'] ||
+                ($data['shipping_ZipCode'] ?? '') != $data['billing_ZipCode']
             );
+
+            if ($isDifferent) {
+                $shippingID = insertAddress(
+                    $conn,
+                    $data['shipping_AddressLine1'],
+                    $data['shipping_AddressLine2'] ?? '',
+                    $data['shipping_City'],
+                    $data['shipping_State'],
+                    $data['shipping_ZipCode']
+                );
+            }
         }
 
         // insert customer info
@@ -77,13 +87,13 @@ function createAccountInDB($data) {
             "ssssiiisss",
             $data['FirstName'],
             $data['LastName'],
-            $data['MI'],
-            $data['dob'],
+            $data['MI'] ?? '',
+            $data['dob'] ?? null,
             $billingID,
             $shippingID,
             $data['emailAddress'],
             $hashedPassword,
-            $data['phoneNumber'],
+            $data['phoneNumber'] ?? '',
             $data['Username']
         );
 
