@@ -15,7 +15,7 @@ function createAccount(data) {
         console.log("Response from DB:", result);
         const message = document.querySelector("#message");
         if (message) {
-            message.textContent = result.message || "Account created!";
+            message.textContent = result.message || "Account created, please login";
             message.style.color = result.success ? "green" : "red";
         }
         return result;

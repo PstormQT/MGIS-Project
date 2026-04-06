@@ -7,7 +7,6 @@ function insertAddress($conn, $line1, $line2, $city, $state, $zip) {
     );
     if (!$stmt) throw new Exception("Address prepare failed: " . mysqli_error($conn));
 
-    // FIX 1: zip must be "s" not "i" — zip codes are strings (leading zeros, e.g. "00501")
     mysqli_stmt_bind_param($stmt, "sssss", $line1, $line2, $city, $state, $zip);
     if (!mysqli_stmt_execute($stmt)) throw new Exception("Address insert failed: " . mysqli_stmt_error($stmt));
 
@@ -52,7 +51,6 @@ function createAccountInDB($data) {
 
         $hashedPassword = password_hash($data['Password'], PASSWORD_DEFAULT);
 
-        // FIX 2: dob cannot be null in bind_param — use empty string as fallback
         $dob = $data['dob'] ?? '';
         $mi  = $data['MI'] ?? '';
         $phone = $data['phoneNumber'] ?? '';
