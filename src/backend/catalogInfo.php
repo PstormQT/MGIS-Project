@@ -25,9 +25,6 @@ function getCountFromDB($shirtID) {
     }
 }
 
-function mockDB($shirtID) {
-    return $shirtID * 20;
-}
 
 header("Content-Type: application/json");
 
