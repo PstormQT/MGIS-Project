@@ -29,7 +29,7 @@ function createAccountInDB($data) {
     mysqli_begin_transaction($conn);
 
     try {
-        // insert billing address
+        // Insert Billing Address
         $billingID = insertAddress(
             $conn,
             $data['billing_AddressLine1'],
@@ -39,46 +39,39 @@ function createAccountInDB($data) {
             $data['billing_ZipCode']
         );
 
-        // Insert Shipping Address
-        $shippingID = $billingID; // default to billingID
+        // Determine if Shipping is the same as Billing
+        $shippingSameAsBilling = (
+            empty($data['shipping_AddressLine1']) ||
+            (
+                ($data['shipping_AddressLine1'] ?? '') === $data['billing_AddressLine1'] &&
+                ($data['shipping_AddressLine2'] ?? '') === ($data['billing_AddressLine2'] ?? '') &&
+                ($data['shipping_City'] ?? '') === $data['billing_City'] &&
+                ($data['shipping_State'] ?? '') === $data['billing_State'] &&
+                ($data['shipping_ZipCode'] ?? '') == $data['billing_ZipCode']
+            )
+        );
 
-        // Check if shipping fields exist and are different
-        $shippingProvided = !empty($data['shipping_AddressLine1']) ||
-                            !empty($data['shipping_City']) ||
-                            !empty($data['shipping_State']) ||
-                            !empty($data['shipping_ZipCode']);
-
-        if ($shippingProvided) {
-            $isDifferent = (
-                ($data['shipping_AddressLine1'] ?? '') !== $data['billing_AddressLine1'] ||
-                ($data['shipping_AddressLine2'] ?? '') !== ($data['billing_AddressLine2'] ?? '') ||
-                ($data['shipping_City'] ?? '') !== $data['billing_City'] ||
-                ($data['shipping_State'] ?? '') !== $data['billing_State'] ||
-                ($data['shipping_ZipCode'] ?? '') != $data['billing_ZipCode']
+        // Use billing ID if same, otherwise insert shipping
+        if ($shippingSameAsBilling) {
+            $shippingID = $billingID;
+        } else {
+            $shippingID = insertAddress(
+                $conn,
+                $data['shipping_AddressLine1'],
+                $data['shipping_AddressLine2'] ?? '',
+                $data['shipping_City'],
+                $data['shipping_State'],
+                $data['shipping_ZipCode']
             );
-
-            if ($isDifferent) {
-                $shippingID = insertAddress(
-                    $conn,
-                    $data['shipping_AddressLine1'],
-                    $data['shipping_AddressLine2'] ?? '',
-                    $data['shipping_City'],
-                    $data['shipping_State'],
-                    $data['shipping_ZipCode']
-                );
-            }
         }
 
-        // insert customer info
+        // Insert Customer Info
         $sqlCustomer = "INSERT INTO CustInfo 
             (FirstName, LastName, MI, dob, billingAdd, shippingAdd, emailAddress, Password, phoneNumber, Username)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = mysqli_prepare($conn, $sqlCustomer);
-
-        if (!$stmt) {
-            throw new Exception("Customer prepare failed");
-        }
+        if (!$stmt) throw new Exception("Customer prepare failed");
 
         $hashedPassword = password_hash($data['Password'], PASSWORD_DEFAULT);
 
@@ -97,9 +90,7 @@ function createAccountInDB($data) {
             $data['Username']
         );
 
-        if (!mysqli_stmt_execute($stmt)) {
-            throw new Exception("Customer insert failed");
-        }
+        if (!mysqli_stmt_execute($stmt)) throw new Exception("Customer insert failed");
 
         $cusUUID = mysqli_insert_id($conn);
         mysqli_stmt_close($stmt);
@@ -114,7 +105,6 @@ function createAccountInDB($data) {
 
     } catch (Exception $e) {
         mysqli_rollback($conn);
-
         return [
             "success" => false,
             "message" => $e->getMessage()
@@ -126,12 +116,10 @@ header("Content-Type: application/json");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $input = json_decode(file_get_contents("php://input"), true);
-
     if (!$input) {
         echo json_encode(["success" => false, "message" => "Invalid JSON"]);
         exit;
     }
-
     echo json_encode(createAccountInDB($input));
     exit;
 }
