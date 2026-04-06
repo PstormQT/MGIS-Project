@@ -1,26 +1,17 @@
 <?php
-
 require "connection.php";
 
 function insertAddress($conn, $line1, $line2, $city, $state, $zip) {
-    $sql = "INSERT INTO AddBook (AddressLine1, AddressLine2, City, State, ZipCode)
-            VALUES (?, ?, ?, ?, ?)";
-
-    $stmt = mysqli_prepare($conn, $sql);
-
-    if (!$stmt) {
-        throw new Exception("Address prepare failed");
-    }
+    $stmt = mysqli_prepare($conn, 
+        "INSERT INTO AddBook (AddressLine1, AddressLine2, City, State, ZipCode) VALUES (?, ?, ?, ?, ?)"
+    );
+    if (!$stmt) throw new Exception("Address prepare failed");
 
     mysqli_stmt_bind_param($stmt, "ssssi", $line1, $line2, $city, $state, $zip);
-
-    if (!mysqli_stmt_execute($stmt)) {
-        throw new Exception("Address insert failed");
-    }
+    if (!mysqli_stmt_execute($stmt)) throw new Exception("Address insert failed");
 
     $id = mysqli_insert_id($conn);
     mysqli_stmt_close($stmt);
-
     return $id;
 }
 
@@ -39,22 +30,10 @@ function createAccountInDB($data) {
             $data['billing_ZipCode']
         );
 
-        // Determine if Shipping is the same as Billing
-        $shippingSameAsBilling = (
-            empty($data['shipping_AddressLine1']) ||
-            (
-                ($data['shipping_AddressLine1'] ?? '') === $data['billing_AddressLine1'] &&
-                ($data['shipping_AddressLine2'] ?? '') === ($data['billing_AddressLine2'] ?? '') &&
-                ($data['shipping_City'] ?? '') === $data['billing_City'] &&
-                ($data['shipping_State'] ?? '') === $data['billing_State'] &&
-                ($data['shipping_ZipCode'] ?? '') == $data['billing_ZipCode']
-            )
-        );
+        // Determine if shipping is same as billing
+        $shippingID = $billingID; // default to billing ID
 
-        // Use billing ID if same, otherwise insert shipping
-        if ($shippingSameAsBilling) {
-            $shippingID = $billingID;
-        } else {
+        if (!empty($data['shipping_AddressLine1'])) {
             $shippingID = insertAddress(
                 $conn,
                 $data['shipping_AddressLine1'],
@@ -66,11 +45,11 @@ function createAccountInDB($data) {
         }
 
         // Insert Customer Info
-        $sqlCustomer = "INSERT INTO CustInfo 
+        $stmt = mysqli_prepare($conn,
+            "INSERT INTO CustInfo 
             (FirstName, LastName, MI, dob, billingAdd, shippingAdd, emailAddress, Password, phoneNumber, Username)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        $stmt = mysqli_prepare($conn, $sqlCustomer);
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        );
         if (!$stmt) throw new Exception("Customer prepare failed");
 
         $hashedPassword = password_hash($data['Password'], PASSWORD_DEFAULT);
@@ -97,21 +76,15 @@ function createAccountInDB($data) {
 
         mysqli_commit($conn);
 
-        return [
-            "success" => true,
-            "message" => "Account created successfully",
-            "CusUUID" => $cusUUID
-        ];
+        return ["success" => true, "message" => "Account created successfully", "CusUUID" => $cusUUID];
 
     } catch (Exception $e) {
         mysqli_rollback($conn);
-        return [
-            "success" => false,
-            "message" => $e->getMessage()
-        ];
+        return ["success" => false, "message" => $e->getMessage()];
     }
 }
 
+// API entry
 header("Content-Type: application/json");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
