@@ -24,13 +24,12 @@ function insertAddress($conn, $line1, $line2, $city, $state, $zip) {
     return $id;
 }
 
-
 function createAccountInDB($data) {
     $conn = openConnection();
     mysqli_begin_transaction($conn);
 
     try {
-        // ✅ Insert Billing Address
+        // insert billing address
         $billingID = insertAddress(
             $conn,
             $data['billing_AddressLine1'],
@@ -40,17 +39,27 @@ function createAccountInDB($data) {
             $data['billing_ZipCode']
         );
 
-        // ✅ Insert Shipping Address
-        $shippingID = insertAddress(
-            $conn,
-            $data['shipping_AddressLine1'],
-            $data['shipping_AddressLine2'],
-            $data['shipping_City'],
-            $data['shipping_State'],
-            $data['shipping_ZipCode']
-        );
+        // Insert Shipping Address
+        $shippingID = $billingID; // default to billingID
+        if (
+            $data['shipping_AddressLine1'] !== $data['billing_AddressLine1'] ||
+            $data['shipping_AddressLine2'] !== $data['billing_AddressLine2'] ||
+            $data['shipping_City'] !== $data['billing_City'] ||
+            $data['shipping_State'] !== $data['billing_State'] ||
+            $data['shipping_ZipCode'] !== $data['billing_ZipCode']
+        ) {
+            // Only insert if shipping is different
+            $shippingID = insertAddress(
+                $conn,
+                $data['shipping_AddressLine1'],
+                $data['shipping_AddressLine2'],
+                $data['shipping_City'],
+                $data['shipping_State'],
+                $data['shipping_ZipCode']
+            );
+        }
 
-        // ✅ Insert Customer
+        // insert customer info
         $sqlCustomer = "INSERT INTO CustInfo 
             (FirstName, LastName, MI, dob, billingAdd, shippingAdd, emailAddress, Password, phoneNumber, Username)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -103,8 +112,6 @@ function createAccountInDB($data) {
     }
 }
 
-
-// API
 header("Content-Type: application/json");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
