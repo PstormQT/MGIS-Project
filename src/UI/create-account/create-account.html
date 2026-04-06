@@ -12,7 +12,6 @@
     <form id="accountForm">
 
         <h3>Personal Information</h3>
-
         <label>First Name</label>
         <input type="text" name="FirstName" required><br>
 
@@ -37,12 +36,7 @@
         <label>Password</label>
         <input type="password" name="Password" required><br>
 
-
-        <!-- ========================= -->
-        <!-- Billing Address -->
-        <!-- ========================= -->
         <h3>Billing Address</h3>
-
         <label>Address Line 1</label>
         <input type="text" name="billing_AddressLine1" required><br>
 
@@ -110,16 +104,11 @@
         <label>Zip Code</label>
         <input type="number" name="billing_ZipCode" required><br>
 
-
-        <!-- ========================= -->
-        <!-- Shipping Address -->
-        <!-- ========================= -->
-        <h3>Shipping Address</h3>
-
         <label>
             <input type="checkbox" id="sameAsBilling"> Same as Billing
         </label><br>
 
+        <h3>Shipping Address</h3>
         <label>Address Line 1</label>
         <input type="text" name="shipping_AddressLine1" required><br>
 
@@ -187,12 +176,12 @@
         <label>Zip Code</label>
         <input type="number" name="shipping_ZipCode" required><br>
 
-
         <button type="submit">Create Account</button>
-
         <p id="message"></p>
     </form>
 </div>
+
+<script src="create-account.js"></script>
 
 </body>
 </html>
