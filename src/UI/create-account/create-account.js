@@ -1,5 +1,6 @@
+// FIX 3: return the fetch so callers can catch errors; also added success/failure UI feedback
 function createAccount(data) {
-    fetch("../../backend/createAccount.php", {
+    return fetch("../../backend/createAccount.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -15,14 +16,20 @@ function createAccount(data) {
         const message = document.querySelector("#message");
         if (message) {
             message.textContent = result.message || "Account created!";
+            message.style.color = result.success ? "green" : "red";
         }
+        return result;
     })
     .catch(error => {
         console.error("Error fetching data:", error);
+        const message = document.querySelector("#message");
+        if (message) {
+            message.textContent = "A network error occurred. Please try again.";
+            message.style.color = "red";
+        }
     });
 }
 
-// Copy billing address to shipping when checkbox checked
 document.getElementById("sameAsBilling").addEventListener("change", function () {
     const shippingFields = [
         "shipping_AddressLine1",
@@ -37,30 +44,35 @@ document.getElementById("sameAsBilling").addEventListener("change", function () 
         if (!field) return;
 
         if (this.checked) {
-            // Copy value from billing
-            const billingName = name.replace("shipping", "billing");
-            field.value = document.querySelector(`[name="${billingName}"]`).value;
-            field.disabled = true; // disable input so user cannot edit
+            const billingName = name.replace("shipping_", "billing_");
+            const billingField = document.querySelector(`[name="${billingName}"]`);
+            field.value = billingField ? billingField.value : '';
+            field.disabled = true;
         } else {
             field.disabled = false;
         }
     });
 });
 
-// Form submit handler
 document.getElementById("accountForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     const formData = new FormData(this);
     const data = {};
 
-    const sameAsBilling = document.getElementById("sameAsBilling").checked;
-
     formData.forEach((value, key) => {
-        // If sameAsBilling is checked, skip shipping fields (PHP will use billing)
-        if (sameAsBilling && key.startsWith("shipping_")) return;
         data[key] = value;
     });
+
+    const sameAsBilling = document.getElementById("sameAsBilling").checked;
+
+    if (sameAsBilling) {
+        data['shipping_AddressLine1'] = data['billing_AddressLine1'] ?? '';
+        data['shipping_AddressLine2'] = data['billing_AddressLine2'] ?? '';
+        data['shipping_City']         = data['billing_City'] ?? '';
+        data['shipping_State']        = data['billing_State'] ?? '';
+        data['shipping_ZipCode']      = data['billing_ZipCode'] ?? '';
+    }
 
     console.log("Collected Form Data:", data);
     createAccount(data);

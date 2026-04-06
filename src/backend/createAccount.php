@@ -5,10 +5,11 @@ function insertAddress($conn, $line1, $line2, $city, $state, $zip) {
     $stmt = mysqli_prepare($conn, 
         "INSERT INTO AddBook (AddressLine1, AddressLine2, City, State, ZipCode) VALUES (?, ?, ?, ?, ?)"
     );
-    if (!$stmt) throw new Exception("Address prepare failed");
+    if (!$stmt) throw new Exception("Address prepare failed: " . mysqli_error($conn));
 
-    mysqli_stmt_bind_param($stmt, "ssssi", $line1, $line2, $city, $state, $zip);
-    if (!mysqli_stmt_execute($stmt)) throw new Exception("Address insert failed");
+    // FIX 1: zip must be "s" not "i" — zip codes are strings (leading zeros, e.g. "00501")
+    mysqli_stmt_bind_param($stmt, "sssss", $line1, $line2, $city, $state, $zip);
+    if (!mysqli_stmt_execute($stmt)) throw new Exception("Address insert failed: " . mysqli_stmt_error($stmt));
 
     $id = mysqli_insert_id($conn);
     mysqli_stmt_close($stmt);
@@ -20,7 +21,6 @@ function createAccountInDB($data) {
     mysqli_begin_transaction($conn);
 
     try {
-        // Insert Billing Address
         $billingID = insertAddress(
             $conn,
             $data['billing_AddressLine1'],
@@ -30,8 +30,7 @@ function createAccountInDB($data) {
             $data['billing_ZipCode']
         );
 
-        // Determine if shipping is same as billing
-        $shippingID = $billingID; // default to billing ID
+        $shippingID = $billingID;
 
         if (!empty($data['shipping_AddressLine1'])) {
             $shippingID = insertAddress(
@@ -44,36 +43,39 @@ function createAccountInDB($data) {
             );
         }
 
-        // Insert Customer Info
         $stmt = mysqli_prepare($conn,
             "INSERT INTO CustInfo 
             (FirstName, LastName, MI, dob, billingAdd, shippingAdd, emailAddress, Password, phoneNumber, Username)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
-        if (!$stmt) throw new Exception("Customer prepare failed");
+        if (!$stmt) throw new Exception("Customer prepare failed: " . mysqli_error($conn));
 
         $hashedPassword = password_hash($data['Password'], PASSWORD_DEFAULT);
+
+        // FIX 2: dob cannot be null in bind_param — use empty string as fallback
+        $dob = $data['dob'] ?? '';
+        $mi  = $data['MI'] ?? '';
+        $phone = $data['phoneNumber'] ?? '';
 
         mysqli_stmt_bind_param(
             $stmt,
             "ssssiiisss",
             $data['FirstName'],
             $data['LastName'],
-            $data['MI'] ?? '',
-            $data['dob'] ?? null,
+            $mi,
+            $dob,
             $billingID,
             $shippingID,
             $data['emailAddress'],
             $hashedPassword,
-            $data['phoneNumber'] ?? '',
+            $phone,
             $data['Username']
         );
 
-        if (!mysqli_stmt_execute($stmt)) throw new Exception("Customer insert failed");
+        if (!mysqli_stmt_execute($stmt)) throw new Exception("Customer insert failed: " . mysqli_stmt_error($stmt));
 
         $cusUUID = mysqli_insert_id($conn);
         mysqli_stmt_close($stmt);
-
         mysqli_commit($conn);
 
         return ["success" => true, "message" => "Account created successfully", "CusUUID" => $cusUUID];
@@ -84,7 +86,6 @@ function createAccountInDB($data) {
     }
 }
 
-// API entry
 header("Content-Type: application/json");
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
