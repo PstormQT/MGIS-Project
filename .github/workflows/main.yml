@@ -5,6 +5,7 @@ on:
     branches:
       - main  # Only triggers on main branch
       - Peter-branch
+      - joe-fart-branch
 
 jobs:
   deploy:
