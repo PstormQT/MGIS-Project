@@ -4,8 +4,161 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Title</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: sans-serif;
+            font-size: xx-large;
+            font-weight: bold;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto;
+            grid-template-areas:
+                    "header header header"
+                    "sidebar content1 content2"
+                    "footer footer footer";
+            gap: 15px;
+            padding: 20px;
+            background-color: #ecf0f1;
+        }
+
+        @media (max-width: 600px) {
+            .grid-container {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                grid-template-areas:
+                        "header"
+                        "content1"
+                        "content2"
+                        "sidebar"
+                        "footer";
+                gap: 15px;
+                padding: 20px;
+                background-color: white;
+            }
+        }
+
+        .grid-item {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .header {
+            grid-column: 1 / 4; /* Start at line 1, end at line 4 */
+            background-color: white;
+            grid-area: header;
+        }
+
+        .sidebar {
+            background-color: white;
+            grid-area: sidebar;
+            height: 500px;
+        }
+
+        .content-1 {
+            /*grid-column: 2 / 4;*/
+            grid-area: content1;
+        }
+
+        .footer {
+            grid-column: 1 / -1; /* -1 is shorthand for "the last line" */
+            background-color: white;
+            grid-area: footer;
+        }
+
+        .shop-box {
+            border: 2px solid black;
+            padding: 10px;
+            margin-top: 10px;
+            text-align: center;
+            background-color: black;
+            cursor: pointer;
+            font-size: 12px;
+            color: white;
+
+        }
+
+        .card {
+            display: inline-block;
+            width: 300px;
+            background-color: white;
+            margin: 20px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px darkgray;
+            font-family: sans-serif;
+        }
+
+    </style>
 </head>
 <body>
     <h1><a href="src/UI/design-page/design-page.html">Design your shirt here</a></h1>
+    <h1><a href="src/UI/login-page/login.html">Login Here</a></h1>
+
+    <div class="grid-container">
+        <div class="grid-item header">Tanka Jahari's T-Shirts</div>
+        <div class="grid-item sidebar">
+            Sidebar
+        <p>Find the perfect shirt you definitely didnt order</p>
+            <p style="font-size: 12px;">Beautiful shirts with concerning images</p>
+            <div class="shop-box">SHOP NOW</div>
+        </div>
+        <div class="grid-item content-1">Content 1</div>
+        <div class="image"><img src="Tanka-lipstick.jpeg"></div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="image"><img src="Chicken-David-Bowie.jpeg"></div>
+            <div class="text-content">
+                <h1>Gray Shirt</h1>
+                <div class="badge"><a href="https://secure.farmsanctuary.org/adopt-a-farm-animal?resident=003UM00000KYYmyYAH&_gl=1*1au5krq*_gcl_au*NDY5NDc3ODAuMTc3MDI1MTUxOA..*_ga*NjAzODk0NjEzLjE3MzY4Nzg1NDE.*_ga_N54YYLNCJ7*czE3NzEyMTA4NzMkbzckZzEkdDE3NzEyMTE4OTQkajU5JGwwJGgw">Shop Now!</a></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="image"><img src="Olive-the-cow.webp"></div>
+            <div class="text-content">
+                <h1>Blue Shirt</h1>
+                <div class="badge"><a href="https://secure.farmsanctuary.org/adopt-a-farm-animal?resident=003UM00000RSGvAYAX&_gl=1*1np1sy8*_gcl_au*NDY5NDc3ODAuMTc3MDI1MTUxOA..*_ga*NjAzODk0NjEzLjE3MzY4Nzg1NDE.*_ga_N54YYLNCJ7*czE3NzEyMTU4MjgkbzgkZzEkdDE3NzEyMTYzMTMkajYwJGwwJGgw">Shop Now!</a></div>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <div class="image"><img src="Ash-sheep.jpeg"></div>
+            <div class="text-content">
+                <h1>Purple Shirt</h1>
+                <div class="badge"><a href="https://secure.farmsanctuary.org/adopt-a-farm-animal?resident=0034x00001mMc3HAAS&_gl=1*b2egk0*_gcl_au*NDY5NDc3ODAuMTc3MDI1MTUxOA..*_ga*NjAzODk0NjEzLjE3MzY4Nzg1NDE.*_ga_N54YYLNCJ7*czE3NzEyMTU4MjgkbzgkZzEkdDE3NzEyMjAwMjUkajUkbDAkaDA.">Shop Now!</a></div>
+            </div>
+        </div>
+
+
+
+        <div class="card">
+            <div class="image"><img src="George-pig.jpeg"></div>
+            <div class="text-content">
+                <h1>Red Shirt</h1>
+                <div class="badge"><a href="https://secure.farmsanctuary.org/adopt-a-farm-animal?resident=0034x00001mMc3YAAS&_gl=1*1wpizay*_gcl_au*NDY5NDc3ODAuMTc3MDI1MTUxOA..*_ga*NjAzODk0NjEzLjE3MzY4Nzg1NDE.*_ga_N54YYLNCJ7*czE3NzEyMTU4MjgkbzgkZzEkdDE3NzEyMTkzNzEkajU5JGwwJGgw">Shop Now!</a></div>
+            </div>
+        </div>
+
+        <div class="grid-item footer">Footer
+            <p>Feel great in your pre-stained shirts provided directly from Tanka Jahary's personal wardrobe!</p>
+            <p style="font-size: 12px;">Get updates from Tanka Jahari!</p>
+            <p style="font-size: 12px;">Talk directly to Tanka Jahari!</p>
+
+        </div>
+
+
 </body>
 </html> 

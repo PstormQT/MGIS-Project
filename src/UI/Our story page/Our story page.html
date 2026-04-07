@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Tanka Jahari's T-Shirts</title>
+    <style>
+
+        body {
+            font-family: Georgia, serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- TOP NAVIGATION BAR --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+            margin-right: 20px;
+            font-size: 14px;
+        }
+
+        /* --- MAIN CONTENT AREA --- */
+        .main {
+            display: flex;
+            padding: 40px 30px;
+        }
+
+        /* Left column */
+        .left-column {
+            width: 50%;
+        }
+
+        .left-column h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .left-column p {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        /* Right column */
+        .right-column {
+            width: 50%;
+            padding-left: 40px;
+        }
+
+        .right-column p {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .shop-btn {
+            background-color: black;
+            color: white;
+            padding: 8px 20px;
+            border: none;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* --- OUR STORY SECTION --- */
+        .story-section {
+            display: flex;
+            padding: 40px 30px;
+            border-top: 1px solid #ccc;
+        }
+
+        .story-text {
+            width: 55%;
+        }
+
+        .story-text h2 {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .story-text p {
+            font-size: 14px;
+            margin-bottom: 14px;
+            color: #333;
+        }
+
+        .story-text i {
+            color: #555;
+        }
+
+        .story-image {
+            width: 45%;
+            padding-left: 30px;
+        }
+
+        .story-image img {
+            width: 100%;
+            max-width: 280px;
+        }
+
+        /* Placeholder box if no image */
+        .img-placeholder {
+            width: 280px;
+            height: 340px;
+            background-color: #e0d8cc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #888;
+            border: 1px solid #ccc;
+        }
+
+        /* --- NEWSLETTER SECTION --- */
+        .newsletter {
+            text-align: center;
+            padding: 50px 30px;
+            border-top: 1px solid #ccc;
+        }
+
+        .newsletter p {
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .newsletter input {
+            padding: 10px;
+            width: 280px;
+            font-size: 14px;
+            border: 1px solid #333;
+        }
+
+        .newsletter button {
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div>
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">About Us</a>
+    </div>
+    <div>
+        <a href="#">Search</a>
+        <a href="#">Cart (4)</a>
+    </div>
+</nav>
+
+<!-- HERO / TOP SECTION -->
+<div class="main">
+
+    <div class="left-column">
+        <h1>Tanka Jahari's T-Shirts</h1>
+        <p>You may look at Tanka Jahari</p>
+        <p>But please don't eat him</p>
+    </div>
+
+    <div class="right-column">
+        <p>Tanka Jahari's top shirt choices this catalogue, check them out!</p>
+        <button class="shop-btn">Shop All Items</button>
+    </div>
+
+</div>
+
+<!-- OUR STORY SECTION -->
+<div class="story-section">
+
+    <div class="story-text">
+        <h2>Our shirts: Who is Tanka Jahari?</h2>
+
+        <p>Our founder, Tanka Jahari is a man worth talking about. He is a man of philanthropy, marvel, scope, and beauty. With a drive to change the world for the better, Jahari has done more than just that. He's also managed to dominate the shirt game.</p>
+
+        <p>Our goal, Tanka Jahari's vision is to make the world a place where everyone can wear nice, affordable clothing that is of a great value and is everywhere for everyone.</p>
+
+        <p><i>"I am Tanka Jahari and I would never order a whole pizza for myself."</i></p>
+
+        <p><i>I mean I'll take it, but you guys have to believe me I would never order a whole pizza just for myself. Its like totally not mine, but I am Tanka Jahari.</i></p>
+    </div>
+
+    <div class="story-image">
+        <!-- Replace the div below with an img tag when you have a photo -->
+        <!-- Example: <img src="tanka.jpg" alt="Tanka Jahari"> -->
+        <div class="img-placeholder">[ Add photo here ]</div>
+    </div>
+
+</div>
+
+<!-- NEWSLETTER SECTION -->
+<div class="newsletter">
+    <p>Hear about Tanka's upsetting life</p>
+    <p>and upset stomach!</p>
+    <br>
+    <input type="email" placeholder="Enter your email here" />
+    <button>Subscribe</button>
+</div>
+
+</body>
+</html>
