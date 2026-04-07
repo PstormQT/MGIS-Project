@@ -54,6 +54,8 @@ document.getElementById("sameAsBilling").addEventListener("change", function () 
     });
 });
 
+
+
 document.getElementById("accountForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
