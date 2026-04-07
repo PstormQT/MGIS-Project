@@ -57,7 +57,7 @@ function createAccountInDB($data) {
 
         mysqli_stmt_bind_param(
             $stmt,
-            "ssssiiisss",
+            "ssssiissss",
             $data['FirstName'],
             $data['LastName'],
             $mi,
