@@ -36,6 +36,11 @@ jobs:
         run: |
           echo "Starting deployment..."
           lftp -u $SFTP_USERNAME,$SFTP_PASSWORD -p $SFTP_PORT sftp://$SFTP_HOST <<EOF
-          mirror -R --delete --verbose ./ $SFTP_TARGET
+          mirror -R --delete --verbose \
+            --exclude-glob .git* \
+            --exclude-glob .github* \
+            --exclude-glob .idea* \
+            --exclude-glob testing* \
+            ./ $SFTP_TARGET
           bye
           EOF
