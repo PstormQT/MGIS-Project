@@ -77,10 +77,8 @@ document.getElementById("accountForm").addEventListener("submit", function(event
 
     console.log("Collected Form Data:", data);
     createAccount(data).then(result => {
-        if (result){
-            console.log(result)
-            console.log(result.success)
-            window.location.href("../login-page/login.html")
+        if (result && result.success){
+            window.location.href = "../login-page/login.html"
         }
     });
 });
