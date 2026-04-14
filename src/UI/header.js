@@ -78,7 +78,7 @@
 
     async function refreshCartCount(){
       try{
-        const res = await fetchJson("../../backend/cart.php?action=view");
+        const res = await fetchJson("../../../backend/cart.php?action=view");
         if (!res.ok) return;
         const data = await res.json();
         if (data && data.cart){
