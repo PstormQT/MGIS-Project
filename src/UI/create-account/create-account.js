@@ -104,7 +104,7 @@ if (acctForm){
         createAccount(data).then(result => {
             if (result && result.success){
                 setTimeout(()=>{
-                    window.location.href = "/UI/login-page/login.html";
+                    window.location.href = "../../UI/login-page/login.html";
                 }, 1200);
             }
         });

@@ -27,7 +27,7 @@ const colorMap = {
 };
 
 function callToDB(shirtID) {
-    fetch(`/backend/catalogInfo.php?shirtID=${encodeURIComponent(shirtID)}`)
+    fetch(`../../backend/catalogInfo.php?shirtID=${encodeURIComponent(shirtID)}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("PHP file error");
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const shirtID = generateShirtID();
             const quantity = parseInt(document.querySelector("#quantity").value) || 1;
             try {
-                const res = await fetch("/backend/cart.php", {
+                const res = await fetch("../../backend/cart.php", {
                     method: "POST",
                     credentials: "include",
                     headers: { "Content-Type": "application/json" },

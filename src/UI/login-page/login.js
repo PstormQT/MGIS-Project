@@ -17,7 +17,7 @@ document.getElementById("login-form").addEventListener("submit", async function(
 
         if (data.success) {
             alert("Login successful!");
-            window.location.href = "/UI/dashboard/dashboard/dashboard.html"; 
+            window.location.href = "../dashboard/dashboard/dashboard.html"; 
         } else {
             alert("Login failed: " + data.message);
         }
