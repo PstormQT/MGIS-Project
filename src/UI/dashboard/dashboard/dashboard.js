@@ -15,7 +15,7 @@ async function loadDashboard() {
         const data = await response.json();
 
         if (!data.success) {
-            window.location.href = '../../../UI/home/home.html';
+            window.location.href = "../../../../home.html";
             return;
         }
 

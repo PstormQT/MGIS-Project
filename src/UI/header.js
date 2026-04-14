@@ -12,14 +12,14 @@
         <div class="logo">Tanka Jahari's<br>T-Shirts</div>
         <nav>
           <ul>
-            <li><a href="/home.html">Home</a></li>
-            <li><a href="/#products">Products</a></li>
-            <li><a href="/UI/Our story page/Our story page.html">About Us</a></li>
+            <li><a href="../../home.html">Home</a></li>
+            <li><a href="../../design-page/design-page.html">Products</a></li>
+            <li><a href="../../Our story page/Our story page.html">About Us</a></li>
           </ul>
         </nav>
         <div class="header-right">
           <span id="search-placeholder">Search</span>
-          <a id="cart-link" href="/UI/dashboard/dashboard/dashboard.html"><span id="cart-count">Cart (0)</span></a>
+          <a id="cart-link" href="../../dashboard/dashboard/dashboard.html"><span id="cart-count">Cart (0)</span></a>
           <button id="account-btn" class="account-btn">Login</button>
         </div>
       `;
@@ -29,7 +29,7 @@
       let hr = header.querySelector('.header-right');
       if(!hr){ hr = document.createElement('div'); hr.className='header-right'; header.appendChild(hr); }
       if(!hr.querySelector('#cart-count')){
-        const cartLink = document.createElement('a'); cartLink.id='cart-link'; cartLink.href='/UI/dashboard/dashboard/dashboard.html'; cartLink.innerHTML='<span id="cart-count">Cart (0)</span>';
+        const cartLink = document.createElement('a'); cartLink.id='cart-link'; cartLink.href='../../dashboard/dashboard/dashboard.html'; cartLink.innerHTML='<span id="cart-count">Cart (0)</span>';
         hr.appendChild(cartLink);
       }
       if(!hr.querySelector('#account-btn')){
@@ -45,20 +45,20 @@
         const res = await fetchJson("../backend/dashboard.php");
         if (!res.ok){
           accountBtn.innerText = 'Login';
-          accountBtn.onclick = ()=> { window.location.href = '/UI/login-page/login.html'; };
+          accountBtn.onclick = ()=> { window.location.href = '../../login-page/login.html'; };
         } else {
           const data = await res.json();
           if (data && data.success){
             const uname = data.user && data.user.Username ? data.user.Username : 'Account';
             accountBtn.innerText = uname;
-            accountBtn.onclick = ()=> { window.location.href = '/UI/dashboard/dashboard/dashboard.html'; };
+            accountBtn.onclick = ()=> { window.location.href = '../../dashboard/dashboard/dashboard.html'; };
 
             if (!document.getElementById('logout-link')){
               const l = document.createElement('button'); l.id='logout-link'; l.className='logout-link'; l.innerText='Logout';
               l.style.marginLeft='8px';
               l.onclick = async ()=>{
                 try{
-                  const r = await fetchJson('/backend/logout.php', { method: 'POST' });
+                  const r = await fetchJson('../../backend/logout.php', { method: 'POST' });
                   if (r.ok){ location.reload(); }
                 }catch(e){ console.error('Logout failed', e); location.reload(); }
               };
@@ -66,13 +66,13 @@
             }
           } else {
             accountBtn.innerText = 'Login';
-            accountBtn.onclick = ()=> { window.location.href = '/UI/login-page/login.html'; };
+            accountBtn.onclick = ()=> { window.location.href = '../../login-page/login.html'; };
           }
         }
       }catch(err){
         console.debug('Session check failed', err);
         accountBtn.innerText = 'Login';
-        accountBtn.onclick = ()=> { window.location.href = '/UI/login-page/login.html'; };
+        accountBtn.onclick = ()=> { window.location.href = '../../login-page/login.html'; };
       }
     }
 

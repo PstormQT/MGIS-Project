@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const result = await res.json();
             if(result.success){
                 // redirect to confirmation
-                window.location.href = '../../../UI/dashboard/order-confirmation/order-confirmation.html?orderID=' + encodeURIComponent(result.orderID);
+                window.location.href = '../order-confirmation/order-confirmation.html?orderID=' + encodeURIComponent(result.orderID);
             } else {
                 messageEl.className='error';
                 messageEl.innerText = result.message || 'Failed to place order';
