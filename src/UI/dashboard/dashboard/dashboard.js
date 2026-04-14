@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadDashboard() {
     try {
-        const response = await fetch('/backend/dashboard.php');
+        const response = await fetch('/backend/dashboard.php', { credentials: 'include' });
         const data = await response.json();
 
         if (!data.success) {
@@ -20,7 +20,7 @@ async function loadDashboard() {
         }
 
         displayUserInfo(data.user);
-        displayCart(data.cart || {});
+        displayCart(data.cartItems || []);
     } catch (error) {
         console.error('Error loading dashboard:', error);
         alert('Error loading dashboard. Please try again.');
@@ -37,7 +37,7 @@ function displayUserInfo(user) {
     document.getElementById('phone').textContent = user.phoneNumber || 'N/A';
 }
 
-function displayCart(cart) {
+function displayCart(cartItems) {
     const cartBody = document.getElementById('cart-body');
     const cartContainer = document.getElementById('cart-container');
     const emptyMessage = document.getElementById('empty-cart-message');
@@ -45,7 +45,7 @@ function displayCart(cart) {
 
     cartBody.innerHTML = '';
 
-    if (!cart || Object.keys(cart).length === 0) {
+    if (!cartItems || cartItems.length === 0) {
         cartContainer.style.display = 'none';
         emptyMessage.style.display = 'block';
         document.getElementById('cart-count').textContent = 'Cart (0)';
@@ -58,39 +58,56 @@ function displayCart(cart) {
     let total = 0;
     let itemCount = 0;
 
-    for (const [shirtID, quantity] of Object.entries(cart)) {
+    cartItems.forEach(item => {
+        const subtotal = parseFloat(item.Price) * parseInt(item.Quantity);
         const row = document.createElement('tr');
-        
-        // For now, display basic info - in real system would fetch price/details
         row.innerHTML = `
-            <td>${shirtID}</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>${quantity}</td>
-            <td>-</td>
+            <td>${item.ShirtID}</td>
+            <td>${item.ColorName || '-'}</td>
+            <td>${item.DesignName || '-'}</td>
+            <td>$${parseFloat(item.Price).toFixed(2)}</td>
+            <td>${item.Quantity}</td>
+            <td>$${subtotal.toFixed(2)}</td>
+            <td><button onclick="removeFromCart('${item.ShirtID}')">Remove</button></td>
         `;
         cartBody.appendChild(row);
-        itemCount += parseInt(quantity);
-    }
+        total += subtotal;
+        itemCount += parseInt(item.Quantity);
+    });
 
     document.getElementById('cart-count').textContent = `Cart (${itemCount})`;
 
-    // Display summary with checkout button
     cartSummary.innerHTML = `
         <div class="summary-row">
-            <span class="summary-label">Total Items:</span>
-            <span class="summary-value">${itemCount}</span>
+            <span class="summary-label">Total:</span>
+            <span class="summary-value">$${total.toFixed(2)}</span>
         </div>
         <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+        <a href="/UI/dashboard/order-history/order-history.html" style="display:block;margin-top:8px;">View Order History</a>
     `;
+}
+
+async function removeFromCart(shirtID) {
+    try {
+        await fetch('/backend/cart.php', {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ shirtID })
+        });
+        loadDashboard();
+    } catch(e) {
+        alert('Error removing item: ' + e.message);
+    }
 }
 
 function goToCheckout() {
     window.location.href = '/UI/dashboard/checkout/checkout.html';
 }
 
-function logout() {
-    // Clear session and redirect to home
+async function logout() {
+    try {
+        await fetch('/backend/logout.php', { method: 'POST', credentials: 'include' });
+    } catch(e) { /* ignore */ }
     window.location.href = '/home.html';
 }

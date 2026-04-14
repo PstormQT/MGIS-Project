@@ -35,12 +35,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         totalEl.innerText = formatCurrency(subtotal + tax);
     }
 
+    let userAddressInfo = { shippingAdd: null, billingAdd: null };
+
     async function loadAddresses(){
-        // Simple placeholder - in real app fetch user addresses
-        addressSelect.innerHTML = `
-            <option value="billing">Use billing address</option>
-            <option value="shipping">Use shipping address</option>
-        `;
+        try {
+            const res = await fetch('/backend/dashboard.php', { credentials: 'include' });
+            const data = await res.json();
+            if (data.success && data.user) {
+                userAddressInfo.shippingAdd = data.user.shippingAdd;
+                userAddressInfo.billingAdd = data.user.billingAdd;
+                addressSelect.innerHTML = `
+                    <option value="shipping" selected>Account shipping address (ID: ${data.user.shippingAdd})</option>
+                    <option value="billing">Account billing address (ID: ${data.user.billingAdd})</option>
+                `;
+            }
+        } catch(e) {
+            console.warn('Could not load addresses', e);
+        }
     }
 
     // initial load
@@ -53,10 +64,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         proceedBtn.disabled = true;
         proceedBtn.innerText = 'Placing order...';
         try{
+            const useShipping = addressSelect.value === 'shipping';
+            const shippingAddID = userAddressInfo.shippingAdd;
+            const billingAddID = useShipping ? userAddressInfo.shippingAdd : userAddressInfo.billingAdd;
             const res = await fetch('/backend/checkout.php', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {'Content-Type':'application/json'},
-                body: JSON.stringify({ addressType: addressSelect.value })
+                body: JSON.stringify({ shippingAddID, billingAddID })
             });
             const result = await res.json();
             if(result.success){
