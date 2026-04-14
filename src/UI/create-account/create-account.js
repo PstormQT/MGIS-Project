@@ -1,4 +1,3 @@
-// FIX 3: return the fetch so callers can catch errors; also added success/failure UI feedback
 function createAccount(data) {
     return fetch("../../backend/createAccount.php", {
         method: "POST",
@@ -24,7 +23,7 @@ function createAccount(data) {
         console.error("Error fetching data:", error);
         const message = document.querySelector("#message");
         if (message) {
-            message.textContent = "A network error occurred. Please try again.";
+            message.textContent = "System is Currently in Maintainance, Please try again later";
             message.style.color = "red";
         }
     });
@@ -71,11 +70,16 @@ document.getElementById("accountForm").addEventListener("submit", function(event
     if (sameAsBilling) {
         data['shipping_AddressLine1'] = data['billing_AddressLine1'] ?? '';
         data['shipping_AddressLine2'] = data['billing_AddressLine2'] ?? '';
-        data['shipping_City']         = data['billing_City'] ?? '';
-        data['shipping_State']        = data['billing_State'] ?? '';
-        data['shipping_ZipCode']      = data['billing_ZipCode'] ?? '';
+        data['shipping_City'] = data['billing_City'] ?? '';
+        data['shipping_State'] = data['billing_State'] ?? '';
+        data['shipping_ZipCode'] = data['billing_ZipCode'] ?? '';
     }
 
     console.log("Collected Form Data:", data);
-    createAccount(data);
+    createAccount(data).then(result => {
+        if (result && result.success){
+            wait(2000)
+            window.location.href = "../login-page/login.html"
+        }
+    });
 });

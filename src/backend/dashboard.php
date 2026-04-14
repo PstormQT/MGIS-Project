@@ -12,7 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 $conn = openConnection();
 $user_id = $_SESSION['user_id'];
 
-// Fetch user information
+
 $stmt = mysqli_prepare($conn,
     "SELECT CusUUID, FirstName, LastName, MI, dob, emailAddress, phoneNumber, Username FROM CustInfo WHERE CusUUID = ?"
 );
@@ -33,7 +33,6 @@ if (!$user) {
     exit;
 }
 
-// Get cart items with shirt details
 $cart_items = [];
 if (!empty($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $shirtID => $quantity) {
