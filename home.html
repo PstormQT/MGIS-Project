@@ -104,38 +104,7 @@
         </div>
     </header>
 
-    <script>
-        async function initHomeHeader() {
-            const accountBtn = document.getElementById('account-btn');
-            try {
-                const res = await fetch('./src/backend/dashboard.php', { 
-                    credentials: 'include' 
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success && data.user) {
-                        accountBtn.innerText = 'Dashboard';
-                        accountBtn.onclick = () => { window.location.href = './src/UI/dashboard/dashboard/dashboard.html'; };
-                    } else {
-                        accountBtn.innerText = 'Login';
-                        accountBtn.onclick = () => { window.location.href = './src/UI/login-page/login.html'; };
-                    }
-                } else {
-                    accountBtn.innerText = 'Login';
-                    accountBtn.onclick = () => { window.location.href = './src/UI/login-page/login.html'; };
-                }
-            } catch (error) {
-                accountBtn.innerText = 'Login';
-                accountBtn.onclick = () => { window.location.href = './src/UI/login-page/login.html'; };
-            }
-        }
-        
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initHomeHeader);
-        } else {
-            initHomeHeader();
-        }
-    </script>
+    <script src="./src/UI/header.js"></script>
 
     <!-- TOP SECTION -->
     <div class="top-section">
