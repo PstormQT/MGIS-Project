@@ -42,7 +42,7 @@
 
     async function refreshSession(){
       try{
-        const res = await fetchJson("../backend/dashboard.php");
+        const res = await fetchJson("../../backend/dashboard.php");
         if (!res.ok){
           accountBtn.innerText = 'Login';
           accountBtn.onclick = ()=> { window.location.href = '../../login-page/login.html'; };
@@ -78,7 +78,7 @@
 
     async function refreshCartCount(){
       try{
-        const res = await fetchJson("../backend/cart.php?action=view");
+        const res = await fetchJson("../../backend/cart.php?action=view");
         if (!res.ok) return;
         const data = await res.json();
         if (data && data.cart){
