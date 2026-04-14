@@ -42,7 +42,7 @@
 
     async function refreshSession(){
       try{
-        const res = await fetchJson("../../backend/dashboard.php");
+        const res = await fetchJson("../../../backend/dashboard.php");
         if (!res.ok){
           accountBtn.innerText = 'Login';
           accountBtn.onclick = ()=> { window.location.href = '../../login-page/login.html'; };
@@ -58,7 +58,7 @@
               l.style.marginLeft='8px';
               l.onclick = async ()=>{
                 try{
-                  const r = await fetchJson('../../backend/logout.php', { method: 'POST' });
+                  const r = await fetchJson('../../../backend/logout.php', { method: 'POST' });
                   if (r.ok){ location.reload(); }
                 }catch(e){ console.error('Logout failed', e); location.reload(); }
               };
