@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function loadOrders(){
         try{
-            const res = await fetch('../../backend/orderHistory.php?action=list');
+            const res = await fetch('../../../backend/orderHistory.php?action=list');
             const data = await res.json();
             if(!data.success || !data.orders || data.orders.length===0){
                 noOrders.style.display='block';

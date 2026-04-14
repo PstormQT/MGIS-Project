@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Fetch cart from backend (session or DB)
     async function fetchCart() {
-        const res = await fetch('../../backend/cart.php?action=view');
+        const res = await fetch('../../../backend/cart.php?action=view');
         const data = await res.json();
         return data.cart || [];
     }
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function loadAddresses(){
         try {
-            const res = await fetch('../../backend/dashboard.php', { credentials: 'include' });
+            const res = await fetch('../../../backend/dashboard.php', { credentials: 'include' });
             const data = await res.json();
             if (data.success && data.user) {
                 userAddressInfo.shippingAdd = data.user.shippingAdd;
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const useShipping = addressSelect.value === 'shipping';
             const shippingAddID = userAddressInfo.shippingAdd;
             const billingAddID = useShipping ? userAddressInfo.shippingAdd : userAddressInfo.billingAdd;
-            const res = await fetch('../../backend/checkout.php', {
+            const res = await fetch('../../../backend/checkout.php', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {'Content-Type':'application/json'},
