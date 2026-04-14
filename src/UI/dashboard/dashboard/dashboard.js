@@ -1,3 +1,5 @@
+// Dashboard JS - Load user data and display cart
+
 document.addEventListener('DOMContentLoaded', function() {
     loadDashboard();
 
@@ -9,19 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadDashboard() {
     try {
-        const response = await fetch('../../backend/dashboard.php');
+        const response = await fetch('../../../backend/dashboard.php');
         const data = await response.json();
 
         if (!data.success) {
-            window.location.href = '../../home.html';
+            window.location.href = '../../../home.html';
             return;
         }
 
-        // Display user information
         displayUserInfo(data.user);
-
-        // Display cart
-        displayCart(data.cart);
+        displayCart(data.cart || {});
     } catch (error) {
         console.error('Error loading dashboard:', error);
         alert('Error loading dashboard. Please try again.');
@@ -38,16 +37,18 @@ function displayUserInfo(user) {
     document.getElementById('phone').textContent = user.phoneNumber || 'N/A';
 }
 
-function displayCart(cartItems) {
-    const cartTableBody = document.getElementById('cart-items');
+function displayCart(cart) {
+    const cartBody = document.getElementById('cart-body');
     const cartContainer = document.getElementById('cart-container');
     const emptyMessage = document.getElementById('empty-cart-message');
+    const cartSummary = document.getElementById('cart-summary');
 
-    cartTableBody.innerHTML = '';
+    cartBody.innerHTML = '';
 
-    if (!cartItems || cartItems.length === 0) {
+    if (!cart || Object.keys(cart).length === 0) {
         cartContainer.style.display = 'none';
         emptyMessage.style.display = 'block';
+        document.getElementById('cart-count').textContent = 'Cart (0)';
         return;
     }
 
@@ -55,39 +56,41 @@ function displayCart(cartItems) {
     cartContainer.style.display = 'block';
 
     let total = 0;
+    let itemCount = 0;
 
-    cartItems.forEach(item => {
+    for (const [shirtID, quantity] of Object.entries(cart)) {
         const row = document.createElement('tr');
+        
+        // For now, display basic info - in real system would fetch price/details
         row.innerHTML = `
-            <td>${item.ShirtID || 'N/A'}</td>
-            <td>${item.Color || 'N/A'}</td>
-            <td>${item.Design || 'N/A'}</td>
-            <td>$${parseFloat(item.Price).toFixed(2)}</td>
-            <td>${item.quantity}</td>
-            <td>$${parseFloat(item.subtotal).toFixed(2)}</td>
+            <td>${shirtID}</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            <td>${quantity}</td>
+            <td>-</td>
         `;
-        cartTableBody.appendChild(row);
-        total += parseFloat(item.subtotal);
-    });
+        cartBody.appendChild(row);
+        itemCount += parseInt(quantity);
+    }
 
-    // Display cart summary
-    const summaryDiv = document.getElementById('cart-summary');
-    summaryDiv.innerHTML = `
+    document.getElementById('cart-count').textContent = `Cart (${itemCount})`;
+
+    // Display summary with checkout button
+    cartSummary.innerHTML = `
         <div class="summary-row">
-            <span class="summary-label">Total:</span>
-            <span class="summary-value">$${total.toFixed(2)}</span>
+            <span class="summary-label">Total Items:</span>
+            <span class="summary-value">${itemCount}</span>
         </div>
         <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
     `;
 }
 
 function goToCheckout() {
-    // Redirect to checkout page (you can adjust the path as needed)
-    window.location.href = '../../home.html'; // Replace with actual checkout page
+    window.location.href = '../checkout/checkout.html';
 }
 
 function logout() {
-    // You can add logout functionality here
-    // For now, we'll just redirect to home
-    window.location.href = '../../home.html';
+    // Clear session and redirect to home
+    window.location.href = '../../../home.html';
 }

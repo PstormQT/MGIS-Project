@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <h1>Checkout</h1>
+            <a href="../dashboard/dashboard.html" class="back-link">← Back to Dashboard</a>
+        </div>
+
+        <div class="checkout-content">
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <h2>Order Summary</h2>
+                <div id="cartItems" class="cart-items"></div>
+                <div class="summary-row total">
+                    <span>Total:</span>
+                    <span id="totalPrice">$0.00</span>
+                </div>
+            </div>
+
+            <!-- Shipping & Billing -->
+            <div class="address-section">
+                <h2>Shipping Address</h2>
+                <select id="shippingAddress" class="address-select">
+                    <option value="">Select shipping address...</option>
+                </select>
+
+                <h2>Billing Address</h2>
+                <div class="address-options">
+                    <label>
+                        <input type="radio" name="billingOption" value="same" checked> Same as shipping
+                    </label>
+                    <label>
+                        <input type="radio" name="billingOption" value="different"> Use different address
+                    </label>
+                </div>
+                <select id="billingAddress" class="address-select" disabled>
+                    <option value="">Select billing address...</option>
+                </select>
+            </div>
+
+            <!-- Place Order Button -->
+            <div class="checkout-actions">
+                <button id="placeOrderBtn" class="btn-primary">Place Order</button>
+                <button onclick="history.back()" class="btn-secondary">Cancel</button>
+            </div>
+        </div>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <script src="checkout.js"></script>
+</body>
+</html>

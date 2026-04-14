@@ -2,11 +2,11 @@
 require "connection.php";
 session_start();
 
-function getCountFromDB($shirtID) {
+function getStockFromDB($shirtID) {
     $conn = openConnection();
 
     $stmt = mysqli_prepare($conn,
-        "SELECT Count FROM ShirtInventory WHERE ShirtID = ?"
+        "SELECT Stock FROM Shirts WHERE ShirtID = ?"
     );
 
     mysqli_stmt_bind_param($stmt, "s", $shirtID);
@@ -15,13 +15,14 @@ function getCountFromDB($shirtID) {
     $result = mysqli_stmt_get_result($stmt);
     $row = mysqli_fetch_assoc($result);
 
-    return $row ? $row['Count'] : 0;
+    return $row ? intval($row['Stock']) : 0;
 }
 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
+header("Content-Type: application/json");
 $method = $_SERVER["REQUEST_METHOD"];
 
 if ($method === "POST") {
@@ -35,7 +36,7 @@ if ($method === "POST") {
         exit;
     }
 
-    $stock = getCountFromDB($shirtID);
+    $stock = getStockFromDB($shirtID);
 
     $currentQty = $_SESSION['cart'][$shirtID] ?? 0;
     $newQty = $currentQty + $quantity;
@@ -60,6 +61,7 @@ if ($method === "POST") {
 
 if ($method === "GET") {
     echo json_encode([
+        "success" => true,
         "cart" => $_SESSION['cart']
     ]);
     exit;
