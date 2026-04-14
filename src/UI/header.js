@@ -15,10 +15,10 @@
       const afterUI = pathname.substring(uiMatch.index + uiMatch[0].length);
       const depth = (afterUI.match(/\//g) || []).length; // Count remaining slashes
       basePrefix = '../'.repeat(depth + 1); // +1 for the current file
-      apiPrefix = '../'.repeat(depth + 2); // +2 to get to root
+      apiPrefix = '../'.repeat(depth + 1); // Go up to src/ level (backend is at src/backend/)
     } else {
       basePrefix = '../..';
-      apiPrefix = '../../..';
+      apiPrefix = '../../';
     }
   }
   
