@@ -50,7 +50,7 @@
           const data = await res.json();
           if (data && data.success){
             const uname = data.user && data.user.Username ? data.user.Username : 'Account';
-            accountBtn.innerText = uname;
+            accountBtn.innerText = 'Dashboard';
             accountBtn.onclick = ()=> { window.location.href = '../../dashboard/dashboard/dashboard.html'; };
 
             if (!document.getElementById('logout-link')){

@@ -92,16 +92,50 @@
         <div class="logo">Tanka Jahari's<br>T-Shirts</div>
         <nav>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#products">Products</a></li>
-                <li><a href="#about">About Us</a></li>
+                <li><a href="./home.html">Home</a></li>
+                <li><a href="./src/UI/design-page/design-page.html">Products</a></li>
+                <li><a href="./src/UI/Our story page/Our story page.html">About Us</a></li>
             </ul>
         </nav>
         <div class="header-right">
             <span>Search</span>
-            <span>Cart (4)</span>
+            <span id="cart-count">Cart (0)</span>
+            <button id="account-btn" class="account-btn" style="background: none; border: none; cursor: pointer; font-weight: bold; font-size: 14px;">Login</button>
         </div>
     </header>
+
+    <script>
+        async function initHomeHeader() {
+            const accountBtn = document.getElementById('account-btn');
+            try {
+                const res = await fetch('./src/backend/dashboard.php', { 
+                    credentials: 'include' 
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.success && data.user) {
+                        accountBtn.innerText = 'Dashboard';
+                        accountBtn.onclick = () => { window.location.href = './src/UI/dashboard/dashboard/dashboard.html'; };
+                    } else {
+                        accountBtn.innerText = 'Login';
+                        accountBtn.onclick = () => { window.location.href = './src/UI/login-page/login.html'; };
+                    }
+                } else {
+                    accountBtn.innerText = 'Login';
+                    accountBtn.onclick = () => { window.location.href = './src/UI/login-page/login.html'; };
+                }
+            } catch (error) {
+                accountBtn.innerText = 'Login';
+                accountBtn.onclick = () => { window.location.href = './src/UI/login-page/login.html'; };
+            }
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initHomeHeader);
+        } else {
+            initHomeHeader();
+        }
+    </script>
 
     <!-- TOP SECTION -->
     <div class="top-section">
