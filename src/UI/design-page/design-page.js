@@ -1,5 +1,5 @@
-let colorBase = "asset/shirt-color/";
-let designBase = "asset/print-design/";
+let colorBase = "../../../asset/shirt-color/";
+let designBase = "../../../asset/print-design/";
 
 const selectColor = document.querySelector("#color");
 const selectDesign = document.querySelector("#design");
