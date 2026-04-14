@@ -1,5 +1,5 @@
 function createAccount(data) {
-    return fetch("../../backend/createAccount.php", {
+    return fetch("/backend/createAccount.php", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -79,7 +79,7 @@ document.getElementById("accountForm").addEventListener("submit", function(event
     createAccount(data).then(result => {
         if (result && result.success){
             wait(2000)
-            window.location.href = "../login-page/login.html"
+            window.location.href = "/UI/login-page/login.html"
         }
     });
 });

@@ -29,10 +29,11 @@ function loginUser($data) {
         return ["success" => false, "message" => "Incorrect password"];
     }
 
-    $_SESSION['user_id'] = $user['CusUUID'];
-    $_SESSION['username'] = $user['Username'];
+    // Use consistent session key (CusUUID) used throughout backend
+    $_SESSION['CusUUID'] = $user['CusUUID'];
+    $_SESSION['Username'] = $user['Username'];
 
-    return ["success" => true, "message" => "Login successful"];
+    return ["success" => true, "message" => "Login successful", "CusUUID" => $user['CusUUID']];
 }
 
 header("Content-Type: application/json");

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Fetch cart from backend (session or DB)
     async function fetchCart() {
-        const res = await fetch('../../../backend/cart.php?action=view');
+        const res = await fetch('/backend/cart.php?action=view');
         const data = await res.json();
         return data.cart || [];
     }
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         proceedBtn.disabled = true;
         proceedBtn.innerText = 'Placing order...';
         try{
-            const res = await fetch('../../../backend/checkout.php', {
+            const res = await fetch('/backend/checkout.php', {
                 method: 'POST',
                 headers: {'Content-Type':'application/json'},
                 body: JSON.stringify({ addressType: addressSelect.value })
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const result = await res.json();
             if(result.success){
                 // redirect to confirmation
-                window.location.href = '../order-confirmation/order-confirmation.html?orderID=' + encodeURIComponent(result.orderID);
+                window.location.href = '/UI/dashboard/order-confirmation/order-confirmation.html?orderID=' + encodeURIComponent(result.orderID);
             } else {
                 messageEl.className='error';
                 messageEl.innerText = result.message || 'Failed to place order';

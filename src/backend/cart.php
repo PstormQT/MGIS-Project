@@ -60,9 +60,26 @@ if ($method === "POST") {
 }
 
 if ($method === "GET") {
+    // Return detailed cart items (with product info) for front-end convenience
+    $conn = openConnection();
+    $items = [];
+    foreach ($_SESSION['cart'] as $shirtID => $qty) {
+        $stmt = mysqli_prepare($conn, "SELECT ShirtID, SizeName, ColorName, DesignName, Price, Stock FROM Shirts WHERE ShirtID = ?");
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "s", $shirtID);
+            mysqli_stmt_execute($stmt);
+            $res = mysqli_stmt_get_result($stmt);
+            $row = mysqli_fetch_assoc($res);
+            mysqli_stmt_close($stmt);
+            if ($row) {
+                $row['Quantity'] = intval($qty);
+                $items[] = $row;
+            }
+        }
+    }
     echo json_encode([
         "success" => true,
-        "cart" => $_SESSION['cart']
+        "cart" => $items
     ]);
     exit;
 }

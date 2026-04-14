@@ -27,7 +27,7 @@ const colorMap = {
 };
 
 function callToDB(shirtID) {
-    fetch(`../../backend/catalogInfo.php?shirtID=${encodeURIComponent(shirtID)}`)
+    fetch(`/backend/catalogInfo.php?shirtID=${encodeURIComponent(shirtID)}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("PHP file error");

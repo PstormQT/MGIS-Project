@@ -20,13 +20,19 @@ if (!isset($_SESSION['CusUUID'])) {
 $cusUUID = $_SESSION['CusUUID'];
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Validate required fields
-if (!isset($data['cart']) || !isset($data['shippingAddID']) || !isset($data['billingAddID'])) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Missing required fields: cart, shippingAddID, billingAddID']);
-    exit;
+// If cart not provided, use session cart
+if (!isset($data['cart'])) {
+    $cart = [];
+    if (!empty($_SESSION['cart'])) {
+        foreach ($_SESSION['cart'] as $sid => $q) {
+            $cart[] = ['shirtID' => $sid, 'quantity' => intval($q)];
+        }
+    }
+} else {
+    $cart = $data['cart'];
 }
 
+// Open DB connection early (needed for fetching user addresses)
 $conn = openConnection();
 if (!$conn) {
     http_response_code(500);
@@ -34,12 +40,32 @@ if (!$conn) {
     exit;
 }
 
+// Determine shipping/billing address IDs
+if (isset($data['shippingAddID']) && isset($data['billingAddID'])) {
+    $shippingAddID = intval($data['shippingAddID']);
+    $billingAddID = intval($data['billingAddID']);
+} else {
+    // Fetch from CustInfo
+    $stmt = $conn->prepare("SELECT shippingAdd, billingAdd FROM CustInfo WHERE CusUUID = ?");
+    if (!$stmt) {
+        throw new Exception("Database error: " . $conn->error);
+    }
+    $stmt->bind_param("i", $cusUUID);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $row = $res->fetch_assoc();
+    $stmt->close();
+    $shippingAddID = isset($row['shippingAdd']) ? intval($row['shippingAdd']) : null;
+    $billingAddID = isset($row['billingAdd']) ? intval($row['billingAdd']) : null;
+}
+
+if (empty($cart)) {
+    throw new Exception('Cart is empty');
+}
+
 try {
     $conn->begin_transaction();
 
-    $cart = $data['cart'];
-    $shippingAddID = intval($data['shippingAddID']);
-    $billingAddID = intval($data['billingAddID']);
     $totalPrice = 0;
 
     // Validate and calculate total
@@ -104,7 +130,8 @@ try {
         if (!$stmt) {
             throw new Exception("Database error: " . $conn->error);
         }
-        $stmt->bind_param("isydd", $orderUUID, $shirtID, $quantity, $pricePerUnit, $subtotal);
+        // OrderUUID (int), ShirtID (string), Quantity (int), Price (double), Subtotal (double)
+        $stmt->bind_param("isidd", $orderUUID, $shirtID, $quantity, $pricePerUnit, $subtotal);
         $stmt->execute();
         $stmt->close();
 
@@ -126,6 +153,7 @@ try {
     echo json_encode([
         'success' => true,
         'orderUUID' => $orderUUID,
+        'orderID' => $orderUUID,
         'totalPrice' => number_format($totalPrice, 2, '.', ''),
         'message' => 'Order created successfully'
     ]);

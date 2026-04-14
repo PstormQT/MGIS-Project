@@ -7,7 +7,8 @@ function insertAddress($conn, $line1, $line2, $city, $state, $zip) {
     );
     if (!$stmt) throw new Exception("Address prepare failed: " . mysqli_error($conn));
 
-    mysqli_stmt_bind_param($stmt, "sssss", $line1, $line2, $city, $state, $zip);
+    // AddressLine1, AddressLine2, City, State, ZipCode (zip as integer)
+    mysqli_stmt_bind_param($stmt, "ssssi", $line1, $line2, $city, $state, $zip);
     if (!mysqli_stmt_execute($stmt)) throw new Exception("Address insert failed: " . mysqli_stmt_error($stmt));
 
     $id = mysqli_insert_id($conn);

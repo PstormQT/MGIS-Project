@@ -11,11 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadDashboard() {
     try {
-        const response = await fetch('../../../backend/dashboard.php');
+        const response = await fetch('/backend/dashboard.php');
         const data = await response.json();
 
         if (!data.success) {
-            window.location.href = '../../../home.html';
+            window.location.href = '/home.html';
             return;
         }
 
@@ -87,10 +87,10 @@ function displayCart(cart) {
 }
 
 function goToCheckout() {
-    window.location.href = '../checkout/checkout.html';
+    window.location.href = '/UI/dashboard/checkout/checkout.html';
 }
 
 function logout() {
     // Clear session and redirect to home
-    window.location.href = '../../../home.html';
+    window.location.href = '/home.html';
 }

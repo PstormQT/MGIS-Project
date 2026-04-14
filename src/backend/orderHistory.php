@@ -90,9 +90,9 @@ try {
                 oi.Quantity,
                 oi.PricePerUnit,
                 oi.Subtotal,
-                s.SizeName as Size,
-                s.ColorName as Color,
-                s.DesignName as Design
+                s.SizeName as SizeName,
+                s.ColorName as ColorName,
+                s.DesignName as DesignName
             FROM OrderItems oi
             JOIN Shirts s ON oi.ShirtID = s.ShirtID
             WHERE oi.OrderUUID = ?
@@ -117,10 +117,18 @@ try {
     }
 
     http_response_code(200);
-    echo json_encode([
-        'success' => true,
-        'orders' => $orders
-    ]);
+    if ($orderID) {
+        // return single order as 'order' for compatibility with front-end
+        echo json_encode([
+            'success' => true,
+            'order' => (count($orders) > 0 ? $orders[0] : null)
+        ]);
+    } else {
+        echo json_encode([
+            'success' => true,
+            'orders' => $orders
+        ]);
+    }
 
 } catch (Exception $e) {
     http_response_code(500);

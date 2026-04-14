@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function loadOrders(){
         try{
-            const res = await fetch('../../../backend/orderHistory.php?action=list');
+            const res = await fetch('/backend/orderHistory.php?action=list');
             const data = await res.json();
             if(!data.success || !data.orders || data.orders.length===0){
                 noOrders.style.display='block';
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 const view = document.createElement('div');
                 view.style.marginTop='0.5rem';
-                view.innerHTML = `<a href="../order-confirmation/order-confirmation.html?orderID=${order.OrderUUID}">View Receipt</a>`;
+                view.innerHTML = `<a href="/UI/dashboard/order-confirmation/order-confirmation.html?orderID=${order.OrderUUID}">View Receipt</a>`;
                 el.appendChild(view);
 
                 ordersList.appendChild(el);

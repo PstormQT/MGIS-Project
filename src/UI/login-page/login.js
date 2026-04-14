@@ -5,7 +5,7 @@ document.getElementById("login-form").addEventListener("submit", async function(
     const password = document.getElementById("password").value;
 
     try {
-        const response = await fetch("../../backend/login.php", {
+        const response = await fetch("/backend/login.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -17,7 +17,7 @@ document.getElementById("login-form").addEventListener("submit", async function(
 
         if (data.success) {
             alert("Login successful!");
-            window.location.href = "../dashboard/dashboard.html"; 
+            window.location.href = "/UI/dashboard/dashboard/dashboard.html"; 
         } else {
             alert("Login failed: " + data.message);
         }
