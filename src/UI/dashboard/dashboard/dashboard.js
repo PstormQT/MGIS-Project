@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadDashboard() {
     try {
-        const response = await fetch('/backend/dashboard.php', { credentials: 'include' });
+        const response = await fetch('../../../backend/dashboard.php', { credentials: 'include' });
         const data = await response.json();
 
         if (!data.success) {
@@ -89,7 +89,7 @@ function displayCart(cartItems) {
 
 async function removeFromCart(shirtID) {
     try {
-        await fetch('/backend/cart.php', {
+        await fetch('../../../backend/cart.php', {
             method: 'DELETE',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -107,7 +107,7 @@ function goToCheckout() {
 
 async function logout() {
     try {
-        await fetch('/backend/logout.php', { method: 'POST', credentials: 'include' });
+        await fetch('../../../backend/logout.php', { method: 'POST', credentials: 'include' });
     } catch(e) { /* ignore */ }
     window.location.href = '/home.html';
 }

@@ -20,15 +20,10 @@ async function fetchBackendWithFallback(pathCandidates, options){
 }
 
 function createAccount(data) {
-    const candidates = [
-        '/backend/createAccount.php',
-        '../backend/createAccount.php',
-        '../../backend/createAccount.php',
-        './backend/createAccount.php',
-        'backend/createAccount.php'
-    ];
 
-    return fetchBackendWithFallback(candidates, {
+    return fetchBackendWithFallback([
+        '../../backend/createAccount.php'
+    ], {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)

@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const useShipping = addressSelect.value === 'shipping';
             const shippingAddID = userAddressInfo.shippingAdd;
             const billingAddID = useShipping ? userAddressInfo.shippingAdd : userAddressInfo.billingAdd;
-            const res = await fetch('/backend/checkout.php', {
+            const res = await fetch('../../../backend/checkout.php', {
                 method: 'POST',
                 credentials: 'include',
                 headers: {'Content-Type':'application/json'},

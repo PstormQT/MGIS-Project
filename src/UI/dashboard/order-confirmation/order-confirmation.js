@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async ()=>{
     const container = document.getElementById('confirmation');
     if(!orderID){ container.innerHTML = '<div style="color:#c00">No order ID provided.</div>'; return; }
     try{
-        const res = await fetch('/backend/orderHistory.php?action=get&orderID=' + encodeURIComponent(orderID));
+        const res = await fetch('../../../backend/orderHistory.php?action=get&orderID=' + encodeURIComponent(orderID));
         const data = await res.json();
         if(!data.success){ container.innerHTML = '<div style="color:#c00">'+(data.message||'Order not found.')+'</div>'; return; }
         const order = data.order;
