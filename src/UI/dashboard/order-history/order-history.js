@@ -29,11 +29,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
                 el.appendChild(items);
 
-                const view = document.createElement('div');
-                view.style.marginTop='0.5rem';
-                view.innerHTML = `<a href="../order-confirmation/order-confirmation.html?orderID=${order.OrderUUID}">View Receipt</a>`;
-                el.appendChild(view);
-
                 ordersList.appendChild(el);
             });
         }catch(err){
