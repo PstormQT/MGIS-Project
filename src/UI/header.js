@@ -6,8 +6,8 @@
   let basePrefix, apiPrefix;
   
   if (isHomePage) {
-    basePrefix = './src';
-    apiPrefix = './src';
+    basePrefix = './src/';
+    apiPrefix = './src/';
   } else {
     // Count the number of directory levels after '/src/UI/'
     const uiMatch = pathname.match(/\/src\/UI\//);
@@ -17,7 +17,7 @@
       basePrefix = '../'.repeat(depth + 1); // +1 for the current file
       apiPrefix = '../'.repeat(depth + 1); // Go up to src/ level (backend is at src/backend/)
     } else {
-      basePrefix = '../..';
+      basePrefix = '../../';
       apiPrefix = '../../';
     }
   }
