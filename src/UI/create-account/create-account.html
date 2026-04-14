@@ -13,6 +13,42 @@
             color: black;
         }
 
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
         /* --- TOP NAVIGATION BAR --- */
         nav {
             display: flex;
@@ -144,61 +180,59 @@
 
         /* --- FOOTER --- */
         footer {
-            display: flex;
-            padding: 40px 60px;
-            gap: 40px;
-            border-top: 1px solid #ccc;
-            margin-top: 40px;
-            font-size: 13px;
-        }
-
-        .footer-brand h3 {
-            font-size: 15px;
-            margin-bottom: 4px;
-            text-decoration: none;
-        }
-
-        .footer-col {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .footer-col a {
-            text-decoration: none;
-            color: #333;
-            font-size: 12px;
-        }
-
-        .footer-col a:hover {
-            text-decoration: underline;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding: 16px;
-            font-size: 11px;
-            color: #aaa;
             border-top: 1px solid #eee;
+            padding: 60px 50px 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            line-height: 2;
+            font-weight: bold;
+        }
+
+        .credits {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 10px;
+            color: #aaa;
+            margin-top: 40px;
         }
 
     </style>
 </head>
 <body>
 
-<!-- NAVIGATION -->
-<nav>
-    <div class="nav-title">Our Shirts</div>
-    <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#">Products</a>
-        <a href="#">About Us</a>
+<!-- HEADER -->
+<header>
+    <div class="logo">Tanka Jahari's<br>T-Shirts</div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/">Products</a></li>
+            <li><a href="/">About Us</a></li>
+        </ul>
+    </nav>
+    <div class="header-right">
+        <span>Search</span>
+        <span>Cart (0)</span>
     </div>
-    <div class="nav-right">
-        <a href="#">Search</a>
-        <a href="#">Cart (0)</a>
-    </div>
-</nav>
+</header>
 
 <div class="page">
 
@@ -430,23 +464,27 @@
 
 <!-- FOOTER -->
 <footer>
-    <div class="footer-brand">
-        <h3>Tanka Jahari's<br>T-Shirts</h3>
-    </div>
-    <div class="footer-col">
-        <a href="#">Resources</a>
-        <a href="#">Return Policy</a>
-        <a href="#">Tanka Order</a>
-        <a href="#">Tanka's Autobiography</a>
-    </div>
-    <div class="footer-col">
-        <a href="#">About</a>
-        <a href="#">Our Story</a>
-        <a href="#">Contact Us (Pls Don't)</a>
-    </div>
-</footer>
+    <div class="footer-logo">Tanka Jahari's<br>T-Shirts</div>
 
-<div class="footer-bottom">Designed by Radoslan Ball</div>
+    <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+            <li>Return Policy</li>
+            <li>Tanka Order</li>
+            <li>Tanka's Autobiography</li>
+        </ul>
+    </div>
+
+    <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+            <li>Our Story</li>
+            <li>Contact Us (Pls Don't)</li>
+        </ul>
+    </div>
+
+    <div class="credits">Designed by Rockstar Sol!</div>
+</footer>
 
 <!-- JAVASCRIPT -->
 <script>

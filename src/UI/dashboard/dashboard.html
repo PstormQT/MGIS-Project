@@ -5,16 +5,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
+    <style>
+        /* --- HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid #eee;
+            padding: 60px 50px 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            line-height: 2;
+            font-weight: bold;
+        }
+
+        .credits {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 10px;
+            color: #aaa;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-    <header class="navbar">
-        <div class="navbar-content">
-            <h1 class="logo">Shirt Shop</h1>
-            <nav class="nav-links">
-                <a href="../../home.html">Home</a>
-                <a href="dashboard.html" class="active">Dashboard</a>
-                <a href="#" id="logout-btn">Logout</a>
-            </nav>
+    <header>
+        <div class="logo">Tanka Jahari's<br>T-Shirts</div>
+        <nav>
+            <ul>
+                <li><a href="../../home.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="#" id="logout-btn">Logout</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <span>Search</span>
+            <span>Cart (0)</span>
         </div>
     </header>
 
@@ -82,7 +159,29 @@
             </div>
         </section>
     </main>
-    
+
+    <footer>
+        <div class="footer-logo">Tanka Jahari's<br>T-Shirts</div>
+
+        <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+                <li>Return Policy</li>
+                <li>Tanka Order</li>
+                <li>Tanka's Autobiography</li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h4>About</h4>
+            <ul>
+                <li>Our Story</li>
+                <li>Contact Us (Pls Don't)</li>
+            </ul>
+        </div>
+
+        <div class="credits">Designed by Rockstar Sol!</div>
+    </footer>
 
     <script src="dashboard.js"></script>
 </body>
