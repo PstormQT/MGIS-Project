@@ -1,5 +1,55 @@
 /* Checkout CSS - Consistent with dashboard design system */
 
+/* --- HEADER --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+.header-right {
+    display: flex;
+    gap: 30px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.account-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+}
+
+#cart-link {
+    text-decoration: none;
+    color: black;
+}
+
 :root {
     --primary-color: #2c3e50;
     --secondary-color: #3498db;
