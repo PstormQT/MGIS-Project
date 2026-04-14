@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadDashboard() {
     try {
-        const response = await fetch('../../../backend/dashboard.php', { credentials: 'include' });
+        const response = await fetch('../../backend/dashboard.php', { credentials: 'include' });
         const data = await response.json();
 
         if (!data.success) {
@@ -83,13 +83,13 @@ function displayCart(cartItems) {
             <span class="summary-value">$${total.toFixed(2)}</span>
         </div>
         <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
-        <a href="../../../UI/dashboard/order-history/order-history.html" style="display:block;margin-top:8px;">View Order History</a>
+        <a href="../order-history/order-history.html" style="display:block;margin-top:8px;">View Order History</a>
     `;
 }
 
 async function removeFromCart(shirtID) {
     try {
-        await fetch('../../../backend/cart.php', {
+        await fetch('../../backend/cart.php', {
             method: 'DELETE',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -102,12 +102,12 @@ async function removeFromCart(shirtID) {
 }
 
 function goToCheckout() {
-    window.location.href = '../../../UI/dashboard/checkout/checkout.html';
+    window.location.href = '../checkout/checkout.html';
 }
 
 async function logout() {
     try {
-        await fetch('../../../backend/logout.php', { method: 'POST', credentials: 'include' });
+        await fetch('../../backend/logout.php', { method: 'POST', credentials: 'include' });
     } catch(e) { /* ignore */ }
-    window.location.href = '../../../UI/home/home.html';
+    window.location.href = '../../../../home.html';
 }
