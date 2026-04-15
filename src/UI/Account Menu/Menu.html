@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanka Jahari's T-Shirts - Account Menu</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+
+        /* Header Navigation - Identical to Previous Pages */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 0;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Main Menu Section */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: serif;
+            font-size: 42px;
+            color: #666;
+            margin-bottom: 50px;
+        }
+
+        /* Redesigned Account Menu Layout */
+        .account-menu-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto 80px;
+        }
+
+        /* 2x2 Grid for the first four buttons */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* Standard Button Styling - Now with square edges */
+        .menu-link {
+            text-decoration: none;
+            color: black;
+            border: 2px solid black;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 80px; /* Ensures consistent height */
+        }
+
+        .menu-link:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Full-width wide button */
+        .wide-button {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Footer Styling - Identical to Previous Pages */
+        footer {
+            border-top: 1px solid #eee;
+            padding: 60px 50px 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            line-height: 2;
+            font-weight: bold;
+        }
+
+        .credits {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 10px;
+            color: #aaa;
+            margin-top: 40px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            header, footer { flex-direction: column; text-align: center; }
+            nav ul { margin: 20px 0; }
+            footer { grid-template-columns: 1fr; }
+            .button-grid { grid-template-columns: 1fr; } /* Stack grid on mobile */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">Tanka Jahari's<br>T-Shirts</div>
+    <nav>
+        <ul>
+            <li><a href="../../../home.html">Home</a></li>
+            <li><a href="../design-page/design-page.html">Products</a></li>
+            <li><a href="../Our story page/Our story page.html">About Us</a></li>
+        </ul>
+    </nav>
+    <div class="header-right">
+        <button id="account-btn" class="account-btn">Login</button>
+    </div>
+</header>
+
+<div class="container">
+    <h1 class="hero-title">Your Account</h1>
+
+    <div class="account-menu-layout">
+        <div class="button-grid">
+            <a href="#" class="menu-link">Personal Information</a>
+            <a href="#" class="menu-link">View Order History</a>
+            <a href="#" class="menu-link">Address Information</a>
+            <a href="#" class="menu-link">Reset Password</a>
+        </div>
+
+        <a href="#" class="menu-link wide-button">Payment Method</a>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-logo">Tanka Jahari's<br>T-Shirts</div>
+
+    <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+            <li>Return Policy</li>
+            <li>Tanka Order</li>
+            <li>Tanka's Autobiography</li>
+        </ul>
+    </div>
+
+    <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+            <li>Our Story</li>
+            <li>Contact Us (Pls Don't)</li>
+        </ul>
+    </div>
+
+    <div class="credits">Designed by Rockstar Sol!</div>
+</footer>
+
+    <script src="../header.js"></script>
+</body>
+</html>

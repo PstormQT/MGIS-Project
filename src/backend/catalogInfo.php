@@ -2,15 +2,15 @@
 
 require "connection.php";
 
-function getCountFromDB($shirtID) {
+function getShirtInfo($shirtID) {
     $conn = openConnection();
 
-    $sql = "SELECT ShirtID, Count FROM ShirtInventory WHERE ShirtID = ?";
+    $sql = "SELECT ShirtID, SizeName, ColorName, DesignName, Price, Stock FROM Shirts WHERE ShirtID = ?";
 
     $stmt = mysqli_prepare($conn, $sql);
 
     if (!$stmt) {
-        throw new Exception("Database died");
+        throw new Exception("Database error");
     }
 
     mysqli_stmt_bind_param($stmt, "s", $shirtID);
@@ -19,9 +19,9 @@ function getCountFromDB($shirtID) {
     $result = mysqli_stmt_get_result($stmt);
 
     if ($row = mysqli_fetch_assoc($result)) {
-        return $row['Count'];
+        return $row;
     } else {
-        return 0;
+        return null;
     }
 }
 
@@ -33,15 +33,25 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     $shirtID = $_GET['shirtID'] ?? "";
 
     if (empty($shirtID)) {
-        echo json_encode(["error" => "Missing shirtID", "count" => 0]);
+        echo json_encode(["error" => "Missing shirtID", "stock" => 0]);
         exit;
     }
 
-    $count = getCountFromDB($shirtID);
+    $shirtInfo = getShirtInfo($shirtID);
 
-    echo json_encode([
-        "count" => $count,
-    ]);
+    if ($shirtInfo) {
+        echo json_encode([
+            "success" => true,
+            "shirtID" => $shirtInfo['ShirtID'],
+            "size" => $shirtInfo['SizeName'],
+            "color" => $shirtInfo['ColorName'],
+            "design" => $shirtInfo['DesignName'],
+            "price" => floatval($shirtInfo['Price']),
+            "stock" => intval($shirtInfo['Stock'])
+        ]);
+    } else {
+        echo json_encode(["error" => "Shirt not found", "stock" => 0]);
+    }
 
     exit;
 }

@@ -4,17 +4,17 @@ session_start();
 
 header("Content-Type: application/json");
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['CusUUID'])) {
     echo json_encode(["success" => false, "message" => "Not logged in"]);
     exit;
 }
 
 $conn = openConnection();
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['CusUUID'];
 
-// Fetch user information
+
 $stmt = mysqli_prepare($conn,
-    "SELECT CusUUID, FirstName, LastName, MI, dob, emailAddress, phoneNumber, Username FROM CustInfo WHERE CusUUID = ?"
+    "SELECT CusUUID, FirstName, LastName, MI, dob, emailAddress, phoneNumber, Username, billingAdd, shippingAdd FROM CustInfo WHERE CusUUID = ?"
 );
 
 if (!$stmt) {
@@ -33,12 +33,11 @@ if (!$user) {
     exit;
 }
 
-// Get cart items with shirt details
 $cart_items = [];
 if (!empty($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $shirtID => $quantity) {
         $stmt = mysqli_prepare($conn,
-            "SELECT ShirtID, Color, Design, Price FROM ShirtInventory WHERE ShirtID = ?"
+            "SELECT ShirtID, SizeName, ColorName, DesignName, Price, Stock FROM Shirts WHERE ShirtID = ?"
         );
         
         if ($stmt) {
@@ -49,17 +48,25 @@ if (!empty($_SESSION['cart'])) {
             mysqli_stmt_close($stmt);
             
             if ($shirt) {
-                $shirt['quantity'] = $quantity;
-                $shirt['subtotal'] = $shirt['Price'] * $quantity;
+                $shirt['Quantity'] = $quantity;
+                $shirt['Subtotal'] = $shirt['Price'] * $quantity;
                 $cart_items[] = $shirt;
             }
         }
     }
 }
 
+$cart_map = [];
+if (!empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $sid => $q) {
+        $cart_map[$sid] = intval($q);
+    }
+}
+
 echo json_encode([
     "success" => true,
     "user" => $user,
-    "cart" => $cart_items
+    "cart" => $cart_map,
+    "cartItems" => $cart_items
 ]);
 ?>
