@@ -1,3 +1,5 @@
+// Dashboard JS - Load user data and display cart
+
 document.addEventListener('DOMContentLoaded', function() {
     loadDashboard();
 
@@ -9,19 +11,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 async function loadDashboard() {
     try {
-        const response = await fetch('../../backend/dashboard.php');
+        const response = await fetch('../../../backend/dashboard.php', { credentials: 'include' });
         const data = await response.json();
 
         if (!data.success) {
-            window.location.href = '../../home.html';
+            window.location.href = "../../../../home.html";
             return;
         }
 
-        // Display user information
         displayUserInfo(data.user);
-
-        // Display cart
-        displayCart(data.cart);
+        displayCart(data.cartItems || []);
     } catch (error) {
         console.error('Error loading dashboard:', error);
         alert('Error loading dashboard. Please try again.');
@@ -39,15 +38,17 @@ function displayUserInfo(user) {
 }
 
 function displayCart(cartItems) {
-    const cartTableBody = document.getElementById('cart-items');
+    const cartBody = document.getElementById('cart-body');
     const cartContainer = document.getElementById('cart-container');
     const emptyMessage = document.getElementById('empty-cart-message');
+    const cartSummary = document.getElementById('cart-summary');
 
-    cartTableBody.innerHTML = '';
+    cartBody.innerHTML = '';
 
     if (!cartItems || cartItems.length === 0) {
         cartContainer.style.display = 'none';
         emptyMessage.style.display = 'block';
+        document.getElementById('cart-count').textContent = 'Cart (0)';
         return;
     }
 
@@ -55,39 +56,58 @@ function displayCart(cartItems) {
     cartContainer.style.display = 'block';
 
     let total = 0;
+    let itemCount = 0;
 
     cartItems.forEach(item => {
+        const subtotal = parseFloat(item.Price) * parseInt(item.Quantity);
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${item.ShirtID || 'N/A'}</td>
-            <td>${item.Color || 'N/A'}</td>
-            <td>${item.Design || 'N/A'}</td>
+            <td>${item.ShirtID}</td>
+            <td>${item.ColorName || '-'}</td>
+            <td>${item.DesignName || '-'}</td>
             <td>$${parseFloat(item.Price).toFixed(2)}</td>
-            <td>${item.quantity}</td>
-            <td>$${parseFloat(item.subtotal).toFixed(2)}</td>
+            <td>${item.Quantity}</td>
+            <td>$${subtotal.toFixed(2)}</td>
+            <td><button onclick="removeFromCart('${item.ShirtID}')">Remove</button></td>
         `;
-        cartTableBody.appendChild(row);
-        total += parseFloat(item.subtotal);
+        cartBody.appendChild(row);
+        total += subtotal;
+        itemCount += parseInt(item.Quantity);
     });
 
-    // Display cart summary
-    const summaryDiv = document.getElementById('cart-summary');
-    summaryDiv.innerHTML = `
+    document.getElementById('cart-count').textContent = `Cart (${itemCount})`;
+
+    cartSummary.innerHTML = `
         <div class="summary-row">
             <span class="summary-label">Total:</span>
             <span class="summary-value">$${total.toFixed(2)}</span>
         </div>
         <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+        <a href="../order-history/order-history.html" style="display:block;margin-top:8px;">View Order History</a>
     `;
 }
 
-function goToCheckout() {
-    // Redirect to checkout page (you can adjust the path as needed)
-    window.location.href = '../../home.html'; // Replace with actual checkout page
+async function removeFromCart(shirtID) {
+    try {
+        await fetch('../../../backend/cart.php', {
+            method: 'DELETE',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ shirtID })
+        });
+        loadDashboard();
+    } catch(e) {
+        alert('Error removing item: ' + e.message);
+    }
 }
 
-function logout() {
-    // You can add logout functionality here
-    // For now, we'll just redirect to home
-    window.location.href = '../../home.html';
+function goToCheckout() {
+    window.location.href = '../checkout/checkout.html';
+}
+
+async function logout() {
+    try {
+        await fetch('../../../backend/logout.php', { method: 'POST', credentials: 'include' });
+    } catch(e) { /* ignore */ }
+    window.location.href = '../../../../home.html';
 }

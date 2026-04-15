@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Tanka Jahari's<br>T-Shirts</div>
+        <nav>
+            <ul>
+                <li><a href="../../../../home.html">Home</a></li>
+                <li><a href="../../design-page/design-page.html">Products</a></li>
+                <li><a href="../../Our story page/Our story page.html">About Us</a></li>
+                <li><a href="#" id="logout-btn">Logout</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <span id="cart-count">Cart (0)</span>
+            <button id="logout-btn">Logout</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- User Information Section -->
+        <section class="user-section">
+            <h2>User Information</h2>
+            <div class="user-info-grid">
+                <div class="user-info-item">
+                    <label>Username:</label>
+                    <p id="username">N/A</p>
+                </div>
+                <div class="user-info-item">
+                    <label>First Name:</label>
+                    <p id="firstname">N/A</p>
+                </div>
+                <div class="user-info-item">
+                    <label>Last Name:</label>
+                    <p id="lastname">N/A</p>
+                </div>
+                <div class="user-info-item">
+                    <label>Middle Initial:</label>
+                    <p id="mi">N/A</p>
+                </div>
+                <div class="user-info-item">
+                    <label>Date of Birth:</label>
+                    <p id="dob">N/A</p>
+                </div>
+                <div class="user-info-item">
+                    <label>Email Address:</label>
+                    <p id="email">N/A</p>
+                </div>
+                <div class="user-info-item">
+                    <label>Phone Number:</label>
+                    <p id="phone">N/A</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Current Cart Section -->
+        <section class="cart-section">
+            <h2>Current Cart</h2>
+            <div id="cart-container">
+                <table id="cart-items">
+                    <thead>
+                        <tr>
+                            <th>Shirt ID</th>
+                            <th>Color</th>
+                            <th>Design</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-body">
+                        <!-- Cart items populated here -->
+                    </tbody>
+                </table>
+                <div id="cart-summary"></div>
+            </div>
+            <div id="empty-cart-message" style="display: none;">
+                <p>Your cart is empty. <a href="../../../../home.html">Continue shopping</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-logo">Tanka Jahari's T-Shirts</div>
+        <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+                <li>Return Policy</li>
+                <li>Tanka Order</li>
+                <li>Tanka's Autobiography</li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>About</h4>
+            <ul>
+                <li>Our Story</li>
+                <li>Contact Us</li>
+            </ul>
+        </div>
+        <div class="credits">Designed by Rockstar Sol!</div>
+    </footer>
+
+    <script src="dashboard.js"></script>
+    <script src="../../header.js"></script>
+</body>
+</html>
