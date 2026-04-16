@@ -97,12 +97,18 @@ try {
         $stmt->close();
     }
 
+    // Calculate tax and shipping
+    $tax = round($totalPrice * 0.08, 2);
+    $subtotalWithTax = $totalPrice + $tax;
+    $shipping = round($subtotalWithTax * 0.15, 2);
+    $totalWithShipping = $subtotalWithTax + $shipping;
+
     // Create order in OrderHistory
     $stmt = $conn->prepare("INSERT INTO OrderHistory (CusUUID, TotalPrice, ShippingAddID, BillingAddID, OrderStatus) VALUES (?, ?, ?, ?, 'confirmed')");
     if (!$stmt) {
         throw new Exception("Database error: " . $conn->error);
     }
-    $stmt->bind_param("idii", $cusUUID, $totalPrice, $shippingAddID, $billingAddID);
+    $stmt->bind_param("idii", $cusUUID, $totalWithShipping, $shippingAddID, $billingAddID);
     $stmt->execute();
     $orderUUID = $conn->insert_id;
     $stmt->close();
@@ -154,7 +160,10 @@ try {
         'success' => true,
         'orderUUID' => $orderUUID,
         'orderID' => $orderUUID,
-        'totalPrice' => number_format($totalPrice, 2, '.', ''),
+        'totalPrice' => number_format($totalWithShipping, 2, '.', ''),
+        'subtotal' => number_format($totalPrice, 2, '.', ''),
+        'tax' => number_format($tax, 2, '.', ''),
+        'shipping' => number_format($shipping, 2, '.', ''),
         'message' => 'Order created successfully'
     ]);
 

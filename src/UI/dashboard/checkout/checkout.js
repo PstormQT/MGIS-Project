@@ -30,9 +30,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             cartList.appendChild(row);
             subtotal += i.Price * i.Quantity;
         });
-        // show total only (tax included)
-        const tax = +(subtotal * 0.07).toFixed(2);
-        totalEl.innerText = formatCurrency(subtotal + tax);
+        // calculate subtotal, tax, and shipping (15% on subtotal + tax)
+        const tax = +(subtotal * 0.08).toFixed(2);
+        const subtotalWithTax = subtotal + tax;
+        const shipping = +(subtotalWithTax * 0.15).toFixed(2);
+        const total = subtotalWithTax + shipping;
+        
+        document.getElementById('subtotalPrice').innerText = formatCurrency(subtotal);
+        document.getElementById('taxPrice').innerText = formatCurrency(tax);
+        document.getElementById('shippingPrice').innerText = formatCurrency(shipping);
+        totalEl.innerText = formatCurrency(total);
     }
 
     let userAddressInfo = { shippingAdd: null, billingAdd: null };
