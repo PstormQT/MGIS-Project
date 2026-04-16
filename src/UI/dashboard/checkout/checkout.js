@@ -25,10 +25,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             const left = document.createElement('div');
             left.innerHTML = `<div><strong>${i.DesignName}</strong> <small>(${i.SizeName} - ${i.ColorName})</small></div><div>Qty: ${i.Quantity}</div>`;
             const right = document.createElement('div');
-            right.innerText = formatCurrency(i.Price);
+            const price = parseFloat(i.Price);
+            right.innerText = formatCurrency(price);
             row.appendChild(left); row.appendChild(right);
             cartList.appendChild(row);
-            subtotal += i.Price * i.Quantity;
+            subtotal += price * i.Quantity;
         });
         // calculate subtotal, tax, and shipping (15% on subtotal + tax)
         const tax = +(subtotal * 0.08).toFixed(2);
