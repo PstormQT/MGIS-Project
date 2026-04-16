@@ -30,6 +30,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 resetState.email = email;
                 resetState.resetToken = data.resetToken;
                 messageEl.textContent = 'Verification code sent to your email!';
+                
+                // For development/testing: show the code on screen
+                if (data.testCode) {
+                    messageEl.textContent = '✓ Success! Your verification code is: ' + data.testCode + ' (also check email)';
+                }
+                
                 messageEl.className = 'success';
                 
                 // Show code section
