@@ -20,6 +20,18 @@
             <div class="order-summary">
                 <h2>Order Summary</h2>
                 <div id="cartItems" class="cart-items"></div>
+                <div class="summary-row subtotal">
+                    <span>Subtotal:</span>
+                    <span id="subtotalPrice">$0.00</span>
+                </div>
+                <div class="summary-row tax">
+                    <span>Tax (8%):</span>
+                    <span id="taxPrice">$0.00</span>
+                </div>
+                <div class="summary-row shipping">
+                    <span>Shipping (15%):</span>
+                    <span id="shippingPrice">$0.00</span>
+                </div>
                 <div class="summary-row total">
                     <span>Total:</span>
                     <span id="totalPrice">$0.00</span>
@@ -45,6 +57,41 @@
                 <select id="billingAddress" class="address-select" disabled>
                     <option value="">Select billing address...</option>
                 </select>
+            </div>
+
+            <!-- Payment Information (Mock) -->
+            <div class="payment-section">
+                <h2>Payment Information</h2>
+                <form id="payment-form">
+                    <div class="form-group">
+                        <label for="cardName">Cardholder Name:</label>
+                        <input type="text" id="cardName" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number:</label>
+                        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="cardExpiry">Expiry Date:</label>
+                            <input type="text" id="cardExpiry" placeholder="MM/YY" maxlength="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardCVC">CVC:</label>
+                            <input type="text" id="cardCVC" placeholder="123" maxlength="4" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zipCode">Zip Code:</label>
+                        <input type="text" id="zipCode" placeholder="12345" required>
+                    </div>
+
+                    <div class="payment-notice">
+                    </div>
+                </form>
             </div>
 
             <!-- Place Order Button -->

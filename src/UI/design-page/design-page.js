@@ -35,11 +35,16 @@ function callToDB(shirtID) {
             return response.json();
         })
         .then(data => {
-            console.log("Stock from DB:", data.stock);
+            console.log("Shirt info from DB:", data);
 
             const countDisplay = document.querySelector("#count");
             if (countDisplay) {
                 countDisplay.textContent = data.stock !== undefined ? data.stock : "N/A";
+            }
+
+            const priceDisplay = document.querySelector("#price");
+            if (priceDisplay) {
+                priceDisplay.textContent = data.price !== undefined ? "$" + parseFloat(data.price).toFixed(2) : "N/A";
             }
         })
         .catch(error => {
