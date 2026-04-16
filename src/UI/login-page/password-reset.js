@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
         messageEl.className = '';
 
         try {
-            const response = await fetch('../../../backend/password-reset.php?action=send_reset_email', {
+            const response = await fetch('../../backend/password-reset.php?action=send_reset_email', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email })
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         messageEl.className = '';
 
         try {
-            const response = await fetch('../../../backend/password-reset.php?action=verify_code', {
+            const response = await fetch('../../backend/password-reset.php?action=verify_code', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
         messageEl.className = '';
 
         try {
-            const response = await fetch('../../../backend/password-reset.php?action=reset_password', {
+            const response = await fetch('../../backend/password-reset.php?action=reset_password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
