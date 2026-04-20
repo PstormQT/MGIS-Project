@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Order History</title>
+  <link rel="stylesheet" href="order-history.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">Tanka Jahari's<br>T-Shirts</div>
+    <nav>
+      <ul>
+        <li><a href="../../../../home.html">Home</a></li>
+        <li><a href="../../design-page/design-page.html">Products</a></li>
+        <li><a href="../../Our story page/Our story page.html">About Us</a></li>
+      </ul>
+    </nav>
+    <div class="header-right">
+      <a id="cart-link" href="../dashboard/dashboard.html"><span id="cart-count">Cart (0)</span></a>
+      <button id="account-btn" class="account-btn">Login</button>
+    </div>
+  </header>
+
+  <main class="history-container">
+    <section id="ordersList">
+      <!-- Orders will be rendered here -->
+    </section>
+    <div id="noOrders" style="display:none;padding:1rem;color:#666;">No orders found.</div>
+  </main>
+
+  <script src="order-history.js"></script>
+  <script src="../../header.js"></script>
+</body>
+</html>

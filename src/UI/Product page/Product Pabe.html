@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Our Products - Tanka Jahari's T-Shirts</title>
+    <style>
+
+        body {
+            font-family: Georgia, serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- TOP NAVIGATION BAR --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        nav .nav-title {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        nav .nav-links a {
+            text-decoration: none;
+            color: black;
+            margin-right: 18px;
+            font-size: 13px;
+        }
+
+        nav .nav-right a {
+            text-decoration: none;
+            color: black;
+            margin-left: 18px;
+            font-size: 13px;
+        }
+
+        /* --- PRODUCT SECTION --- */
+        .product-section {
+            display: flex;
+            padding: 50px 60px;
+            gap: 60px;
+        }
+
+        /* Left side - image and color swatches */
+        .product-left {
+            width: 45%;
+        }
+
+        .product-left .img-placeholder {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            background-color: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #888;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        /* Color swatches */
+        .swatches {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .swatch {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            cursor: pointer;
+        }
+
+        .swatch.gray       { background-color: #aaaaaa; }
+        .swatch.lightblue  { background-color: #b0c4de; }
+        .swatch.lavender   { background-color: #c8a8d0; }
+        .swatch.red        { background-color: #e05050; }
+
+        /* Right side - product details */
+        .product-right {
+            width: 55%;
+        }
+
+        .product-right .product-name {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-right .price {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        /* Quantity row */
+        .quantity-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 20px;
+        }
+
+        .quantity-row label {
+            font-size: 14px;
+            width: 70px;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            width: 140px;
+        }
+
+        .quantity-control button {
+            background: white;
+            border: none;
+            padding: 8px 14px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .quantity-control input {
+            border: none;
+            border-left: 1px solid #ccc;
+            border-right: 1px solid #ccc;
+            text-align: center;
+            width: 50px;
+            font-size: 14px;
+            padding: 8px 0;
+        }
+
+        /* Size row */
+        .size-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 20px;
+        }
+
+        .size-row label {
+            font-size: 14px;
+            width: 70px;
+        }
+
+        .size-row select {
+            width: 140px;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-family: Georgia, serif;
+        }
+
+        /* Add to cart button */
+        .add-to-cart {
+            width: 100%;
+            padding: 14px;
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        /* Description and Reviews dropdowns */
+        .accordion {
+            border-top: 1px solid #ccc;
+        }
+
+        .accordion-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .accordion-row span {
+            color: #333;
+        }
+
+        /* Star rating */
+        .stars {
+            color: gold;
+            font-size: 18px;
+            letter-spacing: 2px;
+        }
+
+        /* --- NEWSLETTER SECTION --- */
+        .newsletter {
+            text-align: center;
+            padding: 50px 30px;
+            border-top: 1px solid #ccc;
+        }
+
+        .newsletter p {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .newsletter .email-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .newsletter input {
+            padding: 10px;
+            width: 260px;
+            font-size: 13px;
+            border: 1px solid #ccc;
+            font-family: Georgia, serif;
+        }
+
+        .newsletter button {
+            padding: 10px 20px;
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            display: flex;
+            padding: 40px 60px;
+            gap: 40px;
+            border-top: 1px solid #ccc;
+            font-size: 13px;
+        }
+
+        .footer-brand {
+            width: 160px;
+        }
+
+        .footer-brand h3 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-col a {
+            text-decoration: none;
+            color: #333;
+            font-size: 12px;
+        }
+
+        .footer-col a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 16px;
+            font-size: 11px;
+            color: #aaa;
+            border-top: 1px solid #eee;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <div class="nav-title">Our Shirts</div>
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Products</a>
+        <a href="#">About Us</a>
+    </div>
+    <div class="nav-right">
+        <a href="#">Search</a>
+        <a href="#">Cart (0)</a>
+    </div>
+</nav>
+
+<!-- PRODUCT SECTION -->
+<div class="product-section">
+
+    <!-- LEFT: Image + Color Swatches -->
+    <div class="product-left">
+
+        <!-- Replace this div with an <img> tag when you have a photo -->
+        <!-- Example: <img src="shirt.jpg" alt="Gray Shirt" style="width:100%; max-width:300px;"> -->
+        <div class="img-placeholder">[ Add shirt photo here ]</div>
+
+        <!-- Color swatches -->
+        <div class="swatches">
+            <div class="swatch gray"></div>
+            <div class="swatch lightblue"></div>
+            <div class="swatch lavender"></div>
+            <div class="swatch red"></div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT: Product Details -->
+    <div class="product-right">
+
+        <p class="product-name">Nonsuspicious<br>gray shirt</p>
+        <p class="price">$30</p>
+
+        <!-- Quantity -->
+        <div class="quantity-row">
+            <label>Quantity</label>
+            <div class="quantity-control">
+                <button onclick="changeQty(-1)">−</button>
+                <input type="number" id="qty" value="1" min="1" />
+                <button onclick="changeQty(1)">+</button>
+            </div>
+        </div>
+
+        <!-- Size -->
+        <div class="size-row">
+            <label>Size</label>
+            <select>
+                <option>Small</option>
+                <option selected>Medium</option>
+                <option>Large</option>
+                <option>X-Large</option>
+            </select>
+        </div>
+
+        <!-- Add to Cart Button -->
+        <button class="add-to-cart">ADD TO CART</button>
+
+        <!-- Description + Reviews accordion -->
+        <div class="accordion">
+            <div class="accordion-row">
+                <span>Description</span>
+                <span>▽</span>
+            </div>
+            <div class="accordion-row">
+                <span class="stars">☆ ☆ ☆ ☆ ☆</span>
+                <span>Reviews &nbsp; ▽</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- NEWSLETTER SECTION -->
+<div class="newsletter">
+    <p>Get 15% off your next order,</p>
+    <p>Subscribe to our Newsletter</p>
+    <div class="email-row">
+        <input type="email" placeholder="Enter your email here" />
+        <button>Subscribe</button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+
+    <div class="footer-brand">
+        <h3>Tanka Jahari's<br>T-Shirts</h3>
+    </div>
+
+    <div class="footer-col">
+        <a href="#">Contact</a>
+        <a href="#">Instagram</a>
+        <a href="#">Facebook</a>
+        <a href="#">Pinterest</a>
+        <a href="#">YouTube</a>
+    </div>
+
+    <div class="footer-col">
+        <a href="#">Resources</a>
+        <a href="#">Return Policy</a>
+        <a href="#">Tanka Order</a>
+        <a href="#">FAQS</a>
+        <a href="#">Privacy Policy</a>
+    </div>
+
+    <div class="footer-col">
+        <a href="#">About</a>
+        <a href="#">Our Story</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+    </div>
+
+</footer>
+
+<div class="footer-bottom">Designed by Tanka Jahari</div>
+
+<!-- JAVASCRIPT: Quantity buttons -->
+<script>
+    function changeQty(amount) {
+        var input = document.getElementById("qty");
+        var current = parseInt(input.value);
+        if (current + amount >= 1) {
+            input.value = current + amount;
+        }
+    }
+</script>
+
+</body>
+</html>

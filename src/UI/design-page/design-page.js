@@ -1,5 +1,5 @@
-let colorBase = "asset/shirt-color/";
-let designBase = "asset/print-design/";
+let colorBase = "../../../asset/shirt-color/";
+let designBase = "../../../asset/print-design/";
 
 const selectColor = document.querySelector("#color");
 const selectDesign = document.querySelector("#design");
@@ -35,11 +35,16 @@ function callToDB(shirtID) {
             return response.json();
         })
         .then(data => {
-            console.log("Count from DB:", data.count);
+            console.log("Shirt info from DB:", data);
 
             const countDisplay = document.querySelector("#count");
             if (countDisplay) {
-                countDisplay.textContent = data.count;
+                countDisplay.textContent = data.stock !== undefined ? data.stock : "N/A";
+            }
+
+            const priceDisplay = document.querySelector("#price");
+            if (priceDisplay) {
+                priceDisplay.textContent = data.price !== undefined ? "$" + parseFloat(data.price).toFixed(2) : "N/A";
             }
         })
         .catch(error => {
@@ -69,7 +74,7 @@ function updateImages() {
     const design = selectDesign.value.toLowerCase();
 
     shirtBaseImg.src = `${colorBase}shirt-${color}.png`;
-    shirtDesignImg.src = `${designBase}${design}.png`;
+    shirtDesignImg.src = `${designBase}${design.toLowerCase()}.png`;
 }
 
 function updateAll() {
@@ -84,4 +89,29 @@ selectSize.addEventListener("change", updateAll);
 
 document.addEventListener("DOMContentLoaded", () => {
     updateAll();
+
+    const submitBtn = document.querySelector("#submit");
+    if (submitBtn) {
+        submitBtn.addEventListener("click", async () => {
+            const shirtID = generateShirtID();
+            const quantity = parseInt(document.querySelector("#quantity").value) || 1;
+            try {
+                const res = await fetch("../../backend/cart.php", {
+                    method: "POST",
+                    credentials: "include",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ shirtID, quantity })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    alert(`Added to cart! ShirtID: ${shirtID}, Qty: ${quantity}`);
+                    if (window.__appHeader) window.__appHeader.refreshCartCount();
+                } else {
+                    alert("Could not add to cart: " + (data.message || "Unknown error"));
+                }
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        });
+    }
 });

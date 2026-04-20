@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Tanka Jahari's T-Shirts</title>
+
     <style>
 
         body {
@@ -12,29 +13,60 @@
             padding: 0;
         }
 
-        /* --- TOP NAVIGATION BAR --- */
-        nav {
+        /* --- HEADER --- */
+        header {
             display: flex;
             justify-content: space-between;
-            padding: 15px 30px;
+            align-items: center;
+            padding: 20px 50px;
             border-bottom: 1px solid #ccc;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 0;
+            margin: 0;
         }
 
         nav a {
             text-decoration: none;
             color: black;
-            margin-right: 20px;
-            font-size: 14px;
         }
 
-        /* --- MAIN CONTENT AREA --- */
+        .header-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .account-btn {
+            padding: 6px 14px;
+            border: 1px solid black;
+            background: none;
+            cursor: pointer;
+        }
+
+        /* --- MAIN CONTENT --- */
         .main {
             display: flex;
-            padding: 40px 30px;
+            padding: 50px;
+            gap: 40px;
         }
 
-        /* Left column */
-        .left-column {
+        .left-column,
+        .right-column {
             width: 50%;
         }
 
@@ -46,13 +78,6 @@
         .left-column p {
             font-size: 14px;
             color: #555;
-            margin-bottom: 8px;
-        }
-
-        /* Right column */
-        .right-column {
-            width: 50%;
-            padding-left: 40px;
         }
 
         .right-column p {
@@ -63,17 +88,17 @@
         .shop-btn {
             background-color: black;
             color: white;
-            padding: 8px 20px;
+            padding: 10px 22px;
             border: none;
-            font-size: 13px;
             cursor: pointer;
         }
 
-        /* --- OUR STORY SECTION --- */
+        /* --- STORY SECTION --- */
         .story-section {
             display: flex;
-            padding: 40px 30px;
+            padding: 50px;
             border-top: 1px solid #ccc;
+            gap: 40px;
         }
 
         .story-text {
@@ -81,7 +106,6 @@
         }
 
         .story-text h2 {
-            font-size: 16px;
             margin-bottom: 15px;
         }
 
@@ -91,23 +115,13 @@
             color: #333;
         }
 
-        .story-text i {
-            color: #555;
-        }
-
         .story-image {
             width: 45%;
-            padding-left: 30px;
         }
 
-        .story-image img {
+        .img-placeholder {
             width: 100%;
             max-width: 280px;
-        }
-
-        /* Placeholder box if no image */
-        .img-placeholder {
-            width: 280px;
             height: 340px;
             background-color: #e0d8cc;
             display: flex;
@@ -118,98 +132,148 @@
             border: 1px solid #ccc;
         }
 
-        /* --- NEWSLETTER SECTION --- */
+        /* --- NEWSLETTER --- */
         .newsletter {
             text-align: center;
-            padding: 50px 30px;
+            padding: 60px 30px;
             border-top: 1px solid #ccc;
-        }
-
-        .newsletter p {
-            font-size: 16px;
-            margin-bottom: 4px;
         }
 
         .newsletter input {
             padding: 10px;
-            width: 280px;
-            font-size: 14px;
+            width: 260px;
             border: 1px solid #333;
         }
 
         .newsletter button {
-            padding: 10px 20px;
+            padding: 10px 18px;
             background-color: black;
             color: white;
             border: none;
-            font-size: 14px;
             cursor: pointer;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid #eee;
+            padding: 60px 50px 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            font-weight: 900;
+            font-size: 20px;
+        }
+
+        .footer-col h4 {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            line-height: 2;
+            font-weight: bold;
+        }
+
+        .credits {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 10px;
+            color: #aaa;
+            margin-top: 40px;
         }
 
     </style>
 </head>
+
 <body>
 
-<!-- NAVIGATION -->
-<nav>
-    <div>
-        <a href="#">Home</a>
-        <a href="#">Products</a>
-        <a href="#">About Us</a>
-    </div>
-    <div>
-        <a href="#">Search</a>
-        <a href="#">Cart (4)</a>
-    </div>
-</nav>
+<header>
+    <div class="logo">Tanka Jahari's<br>T-Shirts</div>
 
-<!-- HERO / TOP SECTION -->
+    <nav>
+        <ul>
+            <li><a href="../../../home.html">Home</a></li>
+            <li><a href="../design-page/design-page.html">Products</a></li>
+            <li><a href="../Our story page/Our story page.html">About Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-right">
+        <span id="cart-count">Cart (0)</span>
+        <button id="account-btn" class="account-btn">Login</button>
+    </div>
+</header>
+
 <div class="main">
 
     <div class="left-column">
         <h1>Tanka Jahari's T-Shirts</h1>
-        <p>You may look at Tanka Jahari</p>
-        <p>But please don't eat him</p>
+        <p>A brand built on personality, creativity, and bold style.</p>
     </div>
 
     <div class="right-column">
-        <p>Tanka Jahari's top shirt choices this catalogue, check them out!</p>
+        <p>Explore our latest collection of unique and expressive designs.</p>
         <button class="shop-btn">Shop All Items</button>
     </div>
 
 </div>
 
-<!-- OUR STORY SECTION -->
 <div class="story-section">
 
     <div class="story-text">
-        <h2>Our shirts: Who is Tanka Jahari?</h2>
+        <h2>Our Story</h2>
 
-        <p>Our founder, Tanka Jahari is a man worth talking about. He is a man of philanthropy, marvel, scope, and beauty. With a drive to change the world for the better, Jahari has done more than just that. He's also managed to dominate the shirt game.</p>
+        <p>Tanka Jahari is more than just a name — it's the identity behind a brand focused on individuality and expression. Built on creativity and ambition, the brand aims to bring bold, affordable fashion to everyone.</p>
 
-        <p>Our goal, Tanka Jahari's vision is to make the world a place where everyone can wear nice, affordable clothing that is of a great value and is everywhere for everyone.</p>
+        <p>Our mission is simple: create high-quality clothing that people actually want to wear — without overcomplicating it.</p>
 
-        <p><i>"I am Tanka Jahari and I would never order a whole pizza for myself."</i></p>
-
-        <p><i>I mean I'll take it, but you guys have to believe me I would never order a whole pizza just for myself. Its like totally not mine, but I am Tanka Jahari.</i></p>
+        <p><i>"Style should be accessible, fun, and a reflection of who you are."</i></p>
     </div>
 
     <div class="story-image">
-        <!-- Replace the div below with an img tag when you have a photo -->
-        <!-- Example: <img src="tanka.jpg" alt="Expect Tanka Jahari"> -->
         <div class="img-placeholder">[ Add photo here ]</div>
     </div>
 
 </div>
 
-<!-- NEWSLETTER SECTION -->
 <div class="newsletter">
-    <p>Hear about Tanka's upsetting life</p>
-    <p>and upset stomach!</p>
+    <p>Stay updated with new drops and announcements</p>
     <br>
-    <input type="email" placeholder="Enter your email here" />
+    <input type="email" placeholder="Enter your email" />
     <button>Subscribe</button>
 </div>
+
+<footer>
+    <div class="footer-logo">Tanka Jahari's<br>T-Shirts</div>
+
+    <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+            <li>Return Policy</li>
+            <li>Orders</li>
+            <li>FAQs</li>
+        </ul>
+    </div>
+
+    <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+            <li>Our Story</li>
+            <li>Contact</li>
+        </ul>
+    </div>
+
+    <div class="credits">Designed by Rockstar Sol!</div>
+</footer>
+
+<script src="../header.js"></script>
 
 </body>
 </html>

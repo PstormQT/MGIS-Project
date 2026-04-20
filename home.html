@@ -14,143 +14,46 @@
             padding: 0;
         }
 
-        /* --- NAV --- */
-        nav {
+        /* --- HEADER --- */
+        header {
             display: flex;
             justify-content: space-between;
-            padding: 15px 30px;
-            border-bottom: 1px solid #ccc;
+            align-items: center;
+            padding: 20px 50px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 0;
+            margin: 0;
         }
 
         nav a {
             text-decoration: none;
             color: black;
-            margin-right: 20px;
-            font-size: 14px;
         }
 
-        /* --- HEADER --- */
-        .header {
-            padding: 40px 30px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .header h1 {
-            font-size: 36px;
-            margin: 0;
-        }
-
-        /* --- TOP SECTION (TEXT + IMAGE) --- */
-        .top-section {
+        .header-right {
             display: flex;
-            padding: 40px 30px;
-            gap: 40px;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .left-column {
-            width: 50%;
-        }
-
-        .left-column p {
-            font-size: 14px;
-            color: #555;
-        }
-
-        .shop button {
-            background-color: black;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 13px;
-            width: 150px;
-        }
-
-        .right-column {
-            width: 50%;
-        }
-
-        .right-column img {
-            width: 100%;
-            max-width: 300px;
-        }
-
-        /* --- PRODUCTS (CENTERED BELOW) --- */
-        .products {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
             gap: 30px;
-            padding: 40px 30px;
-        }
-
-        .card {
-            width: 220px;
-            text-align: center;
-        }
-
-        .card img {
-            width: 100%;
-            border: 1px solid #ccc;
-        }
-
-        .card h2 {
-            font-size: 16px;
-            margin: 10px 0 5px;
-        }
-
-        .card a {
-            font-size: 13px;
-            text-decoration: none;
-            color: black;
-            border-bottom: 1px solid black;
-        }
-
-        /* --- NEWSLETTER --- */
-        .newsletter {
-            text-align: center;
-            padding: 50px 30px;
-            border-top: 1px solid #ccc;
-        }
-
-        .newsletter p {
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-
-        .newsletter input {
-            padding: 10px;
-            width: 280px;
             font-size: 14px;
-            border: 1px solid #333;
+            font-weight: bold;
         }
 
-        .newsletter button {
-            padding: 10px 20px;
-            background-color: black;
-            color: white;
-            border: none;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        /* --- FOOTER --- */
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            padding: 40px 30px;
-            border-top: 1px solid #ccc;
-            font-size: 14px;
-        }
-
-        .footer div {
-            width: 30%;
-        }
-
-        /* --- RESPONSIVE --- */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
+            header, footer { flex-direction: column; text-align: center; }
+            nav ul { margin: 20px 0; }
             .top-section {
                 flex-direction: column;
             }
@@ -168,39 +71,9 @@
             .footer div {
                 width: 100%;
             }
+
+            footer { grid-template-columns: 1fr; }
         }
-
-        /* Footer Styling */
-        footer {
-            border-top: 1px solid #eee;
-            padding: 60px 50px 20px;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 20px;
-        }
-
-
-        .footer-logo {
-            font-weight: 900;
-            font-size: 20px;
-        }
-
-
-        .footer-col h4 {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 20px;
-        }
-
-
-        .footer-col ul {
-            list-style: none;
-            padding: 0;
-            font-size: 14px;
-            line-height: 2;
-            font-weight: bold;
-        }
-
 
         .credits {
             grid-column: 1 / -1;
@@ -214,22 +87,24 @@
 
 <body>
 
-    <!-- NAV -->
-    <nav>
-        <div>
-            <a href="#">Home</a>
-            <a href="#">Products</a>
-            <a href="#">About</a>
-        </div>
-        <div>
-            <a href="#">Cart (4)</a>
-        </div>
-    </nav>
-
     <!-- HEADER -->
-    <div class="header">
-        <h1>Tanka Jahari's T-Shirts</h1>
-    </div>
+    <header>
+        <div class="logo">Tanka Jahari's<br>T-Shirts</div>
+        <nav>
+            <ul>
+                <li><a href="./home.html">Home</a></li>
+                <li><a href="./src/UI/design-page/design-page.html">Products</a></li>
+                <li><a href="./src/UI/Our story page/Our story page.html">About Us</a></li>
+            </ul>
+        </nav>
+        <div class="header-right">
+            <span>Search</span>
+            <span id="cart-count">Cart (0)</span>
+            <button id="account-btn" class="account-btn" style="background: none; border: none; cursor: pointer; font-weight: bold; font-size: 14px;">Login</button>
+        </div>
+    </header>
+
+    <script src="./src/UI/header.js"></script>
 
     <!-- TOP SECTION -->
     <div class="top-section">
@@ -241,7 +116,7 @@
         </div>
 
         <div class="right-column">
-            <img src="src/UI/design-page/asset/print-design/design-1.png" alt="Tanka">
+            <img src="asset/print-design/design-1.png" alt="Tanka">
         </div>
 
     </div>
@@ -250,27 +125,27 @@
     <div class="products">
 
         <div class="card">
-            <img src="src/UI/design-page/asset/shirt-color/shirt-blue.png" href="src/UI/design-page/design-page.html">
+            <img src="asset/shirt-color/shirt-blue.png">
             <h2>Gray Shirt</h2>
-            <a href="src/UI/design-page/design-page.html">Shop Now</a>
+            <a href="./src/UI/design-page/design-page.html">Shop Now</a>
         </div>
 
         <div class="card">
-            <img src="src/UI/design-page/asset/shirt-color/shirt-green.png"href="src/UI/design-page/design-page.html">
+            <img src="asset/shirt-color/shirt-green.png">
             <h2>Blue Shirt</h2>
-            <a href="src/UI/design-page/design-page.html">Shop Now</a>
+            <a href="./src/UI/design-page/design-page.html">Shop Now</a>
         </div>
 
         <div class="card">
-            <img src="src/UI/design-page/asset/shirt-color/shirt-pink.png"href="src/UI/design-page/design-page.html">
+            <img src="asset/shirt-color/shirt-pink.png">
             <h2>Purple Shirt</h2>
-            <a href="src/UI/design-page/design-page.html">Shop Now</a>
+            <a href="./src/UI/design-page/design-page.html">Shop Now</a>
         </div>
 
         <div class="card">
-            <img src="src/UI/design-page/asset/shirt-color/shirt-red.png" href="src/UI/design-page/design-page.html">
+            <img src="asset/shirt-color/shirt-red.png">
             <h2>Red Shirt</h2>
-            <a href="src/UI/design-page/design-page.html">Shop Now</a>
+            <a href="./src/UI/design-page/design-page.html">Shop Now</a>
         </div>
 
     </div>

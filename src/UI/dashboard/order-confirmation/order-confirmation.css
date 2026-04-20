@@ -1,0 +1,218 @@
+/* Order confirmation styles */
+
+/* --- HEADER --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+.header-right {
+    display: flex;
+    gap: 30px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.account-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+}
+
+#cart-link {
+    text-decoration: none;
+    color: black;
+}
+
+.confirm-container{ max-width:900px; margin:1.25rem auto; padding:1rem; }
+.confirm-card{ background:#fff; padding:2rem; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); }
+
+.confirm-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #f3f3f3;
+}
+
+.confirm-header h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 28px;
+    color: #333;
+}
+
+.confirm-header p {
+    margin: 0;
+    color: #666;
+    font-size: 16px;
+}
+
+.confirm-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.confirm-meta h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 18px;
+}
+
+.order-date {
+    font-size: 14px;
+    color: #666;
+    margin: 0.25rem 0;
+}
+
+.order-status {
+    font-size: 14px;
+    margin-top: 0.5rem;
+}
+
+.items-section {
+    margin-bottom: 2rem;
+}
+
+.items-section h3 {
+    margin: 0 0 1rem 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.items-list {
+    margin-top: 0.75rem;
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f3f3f3;
+    gap: 1rem;
+}
+
+.item-details {
+    flex: 1;
+}
+
+.item-name {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.item-specs {
+    color: #666;
+    font-size: 13px;
+}
+
+.item-qty {
+    min-width: 50px;
+    text-align: center;
+}
+
+.item-price {
+    min-width: 80px;
+    text-align: right;
+}
+
+.item-total {
+    min-width: 80px;
+    text-align: right;
+    font-weight: 500;
+}
+
+.price-breakdown {
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin-bottom: 2rem;
+}
+
+.price-breakdown h3 {
+    margin: 0 0 1rem 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-size: 14px;
+}
+
+.breakdown-row.total {
+    border-top: 2px solid #ddd;
+    padding-top: 0.75rem;
+    margin-top: 0.75rem;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.shipping-address {
+    margin-bottom: 2rem;
+}
+
+.shipping-address h3 {
+    margin: 0 0 1rem 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.address {
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 6px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.confirm-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.btn-primary:hover {
+    background: #555;
+}

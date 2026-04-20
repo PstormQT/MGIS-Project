@@ -1,0 +1,61 @@
+/* Order History CSS - consistent with site theme */
+
+/* --- HEADER --- */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+.header-right {
+    display: flex;
+    gap: 30px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.account-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+}
+
+#cart-link {
+    text-decoration: none;
+    color: black;
+}
+
+.history-container{ max-width:900px; margin:1.25rem auto; padding:1rem; }
+.order-card{ background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.06); margin-bottom:1rem; padding:1rem; }
+.order-meta{ display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+.order-items{ margin-top:0.75rem; border-top:1px dashed #eee; padding-top:0.75rem; }
+.item-row{ display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px solid #f2f2f2; }
+.item-row:last-child{ border-bottom:none; }
+.order-total{ font-weight:700; text-align:right; color:#2c3e50; }
+
+@media (max-width:600px){ .order-meta{ flex-direction:column; align-items:flex-start; } }
