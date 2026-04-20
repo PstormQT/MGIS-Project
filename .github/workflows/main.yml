@@ -6,6 +6,7 @@ on:
       - main  # Only triggers on main branch
       - Peter-branch
       - joe-fart-branch
+      - Connor
 
 jobs:
   deploy:
