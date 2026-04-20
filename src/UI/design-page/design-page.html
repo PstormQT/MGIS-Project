@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Design Page</title>
+    <title>Tanka Jahari's T-Shirts - Design Page</title>
     <link rel="stylesheet" href="design-space.css">
-    <style>
 
+    <style>
+        /* --- BEAUTIFICATION STYLES (Keeping the brand look) --- */
         body {
-            font-family: Georgia, serif;
             background-color: white;
+            font-family: sans-serif;
             margin: 0;
             padding: 0;
-            color: black;
+            color: #000;
         }
 
-        /* --- HEADER / NAV --- */
         header {
             display: flex;
             justify-content: space-between;
@@ -24,68 +24,31 @@
             border-bottom: 1px solid #ccc;
         }
 
-        .logo {
-            font-size: 16px;
-            font-weight: bold;
-            font-family: Georgia, serif;
-            line-height: 1.3;
+        .logo { font-size: 28px; font-weight: 900; line-height: 1.1; }
+
+        nav ul { display: flex; list-style: none; gap: 30px; font-size: 14px; font-weight: bold; margin: 0; padding: 0; }
+        nav a { text-decoration: none; color: black; }
+
+        .header-right { display: flex; gap: 30px; font-size: 14px; font-weight: bold; }
+
+        /* --- PRODUCT GRID LAYOUT --- */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Two equal columns */
+            gap: 50px;
+            padding: 40px 20px;
+            align-items: start;
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 18px;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: black;
-            font-size: 13px;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        /* Login button styled like nav link */
-        .account-btn {
-            background: none;
-            border: none;
-            font-family: Georgia, serif;
-            font-size: 13px;
-            cursor: pointer;
-            padding: 0;
-        }
-
-        .account-btn:hover {
-            text-decoration: underline;
-        }
-
-        /* --- PRODUCT SECTION --- */
-        .product-section {
-            display: flex;
-            padding: 50px 60px;
-            gap: 60px;
-        }
-
-        /* Left side - shirt image */
-        .product-left {
-            width: 45%;
-        }
-
+        /* --- OVERLAY LOGIC (Fixed Scaling) --- */
         .shirt-container {
             position: relative;
             width: 100%;
-            max-width: 300px;
-            margin-bottom: 20px;
+            max-width: 500px; /* Limits the shirt size so it doesn't eat the page */
+            margin: 0 auto;
+            background-color: #f9f9f9;
         }
 
         .shirt-container img.base {
@@ -93,29 +56,90 @@
             display: block;
         }
 
+        /* This is the part that scales the actual graphic */
         .shirt-container img.design {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 40%;
+            width: 35%;          /* Adjust this % to scale the design up or down */
+            height: auto;        /* Keeps the graphic from stretching */
+            top: 22%;            /* Moves design down from the top (Chest placement) */
+            left: 50%;           /* Moves design to the middle */
+            transform: translateX(-50%); /* Perfectly centers the design horizontally */
+            pointer-events: none;
         }
 
-        /* Right side - product options */
-        .product-right {
-            width: 55%;
+        /* RIGHT SIDE: Controls & E-commerce details */
+        .controls-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        /* Stock and price */
-        .product-meta {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 6px;
+        .product-header h1 {
+            font-family: serif;
+            font-size: 38px;
+            margin: 0 0 10px 0;
+            color: #333;
         }
 
-        .product-price {
-            font-size: 36px;
+        .info-row {
+            font-size: 18px;
             font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .info-row label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #888;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Input & Select Styling */
+        .config-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .field label {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        select, input[type="number"] {
+            border: 2px solid black;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 0; /* Square edges */
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #submit {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: opacity 0.2s;
             margin-bottom: 28px;
         }
 
@@ -161,7 +185,8 @@
             background-color: #333;
         }
 
-        /* --- FOOTER --- */
+        #submit:hover { opacity: 0.8; }
+
         footer {
             display: flex;
             padding: 40px 60px;
@@ -253,77 +278,75 @@
         </div>
     </div>
 
-    <!-- RIGHT: Options -->
-    <div class="product-right">
-
-        <!-- Stock -->
-        <p class="product-meta">
-            In Stock: <span id="count">—</span>
-        </p>
-
-        <!-- Price -->
-        <p class="product-price">
-            <span id="price">—</span>
-        </p>
-
-        <!-- Quantity -->
-        <div class="form-row">
-            <label for="quantity">Quantity</label>
-            <input id="quantity" type="number" value="1" min="1" max="999" />
+    <div class="controls-panel">
+        <div class="product-header">
+            <h1>Graphic Tee</h1>
         </div>
 
-        <!-- Size -->
-        <div class="form-row">
-            <label for="size">Size</label>
-            <select name="size" id="size">
-                <option value="2XS">2XS</option>
-                <option value="XS">XS</option>
-                <option value="S">S</option>
-                <option value="M">M</option>
-                <option value="L">L</option>
-                <option value="XL" selected>XL</option>
-                <option value="2XL">2XL</option>
-                <option value="3XL">3XL</option>
-            </select>
+        <div class="info-row">
+            <label>In Stock</label>
+            <span id="count">—</span>
         </div>
 
-        <!-- Color -->
-        <div class="form-row">
-            <label for="color">Color</label>
-            <select name="color" id="color">
-                <option value="blue">Blue</option>
-                <option value="green">Green</option>
-                <option value="pink">Pink</option>
-                <option value="red">Red</option>
-            </select>
+        <div class="info-row">
+            <label>Price</label>
+            $<span id="price">—</span>
         </div>
 
-        <!-- Design -->
-        <div class="form-row">
-            <label for="design">Design</label>
-            <select name="design" id="design">
-                <option value="Design-1">Design 1</option>
-                <option value="Design-2">Design 2</option>
-                <option value="Design-3">Design 3</option>
-                <option value="Design-4">Design 4</option>
-                <option value="Design-5">Design 5</option>
-                <option value="Design-6">Design 6</option>
-                <option value="Design-7">Design 7</option>
-                <option value="Design-8">Design 8</option>
-                <option value="Design-9">Design 9</option>
-            </select>
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 10px 0;">
+
+        <div class="config-group">
+            <div class="field">
+                <label for="size">Size</label>
+                <select name="size" id="size">
+                    <option value="2XS">2XS</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL" selected>XL</option>
+                    <option value="2XL">2XL</option>
+                    <option value="3XL">3XL</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="color">Color</label>
+                <select name="color" id="color">
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                    <option value="pink">Pink</option>
+                    <option value="red">Red</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="design">Design</label>
+                <select name="design" id="design">
+                    <option value="Design-1">Design 1</option>
+                    <option value="Design-2">Design 2</option>
+                    <option value="Design-3">Design 3</option>
+                    <option value="Design-4">Design 4</option>
+                    <option value="Design-5">Design 5</option>
+                    <option value="Design-6">Design 6</option>
+                    <option value="Design-7">Design 7</option>
+                    <option value="Design-8">Design 8</option>
+                    <option value="Design-9">Design 9</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="quantity">Quantity</label>
+                <input id="quantity" type="number" value="1" min="1" max="999">
+            </div>
+
+            <button id="submit">Add to Cart</button>
         </div>
-
-        <!-- Add to Cart -->
-        <button id="submit" class="add-to-cart">ADD TO CART</button>
-
     </div>
-</div>
+</main>
 
-<!-- FOOTER -->
 <footer>
     <div class="footer-logo">Tanka Jahari's<br>T-Shirts</div>
-
     <div class="footer-col">
         <h4>Resources</h4>
         <ul>
@@ -332,7 +355,6 @@
             <li>Tanka's Autobiography</li>
         </ul>
     </div>
-
     <div class="footer-col">
         <h4>About</h4>
         <ul>
@@ -340,13 +362,10 @@
             <li>Contact Us (Pls Don't)</li>
         </ul>
     </div>
-
     <div class="credits">Designed by Rockstar Sol!</div>
 </footer>
 
-<!-- Your original JS files stay exactly the same -->
 <script src="design-page.js"></script>
 <script src="../header.js"></script>
-
 </body>
 </html>
