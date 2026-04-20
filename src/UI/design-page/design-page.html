@@ -6,26 +6,35 @@
     <title>Design Page</title>
     <link rel="stylesheet" href="design-space.css">
     <style>
-        /* --- HEADER --- */
+
+        body {
+            font-family: Georgia, serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            color: black;
+        }
+
+        /* --- HEADER / NAV --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 50px;
+            padding: 15px 30px;
+            border-bottom: 1px solid #ccc;
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: 900;
-            line-height: 1.1;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: Georgia, serif;
+            line-height: 1.3;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
-            font-size: 14px;
-            font-weight: bold;
+            gap: 18px;
             padding: 0;
             margin: 0;
         }
@@ -33,154 +42,311 @@
         nav a {
             text-decoration: none;
             color: black;
+            font-size: 13px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
         }
 
         .header-right {
             display: flex;
-            gap: 30px;
+            align-items: center;
+            gap: 18px;
+        }
+
+        /* Login button styled like nav link */
+        .account-btn {
+            background: none;
+            border: none;
+            font-family: Georgia, serif;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .account-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* --- PRODUCT SECTION --- */
+        .product-section {
+            display: flex;
+            padding: 50px 60px;
+            gap: 60px;
+        }
+
+        /* Left side - shirt image */
+        .product-left {
+            width: 45%;
+        }
+
+        .shirt-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .shirt-container img.base {
+            width: 100%;
+            display: block;
+        }
+
+        .shirt-container img.design {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40%;
+        }
+
+        /* Right side - product options */
+        .product-right {
+            width: 55%;
+        }
+
+        /* Stock and price */
+        .product-meta {
             font-size: 14px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .product-price {
+            font-size: 36px;
             font-weight: bold;
+            margin-bottom: 28px;
+        }
+
+        /* Form rows */
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            gap: 10px;
+        }
+
+        .form-row label {
+            font-size: 13px;
+            width: 80px;
+            color: #333;
+        }
+
+        .form-row input[type="number"],
+        .form-row select {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            font-size: 13px;
+            font-family: Georgia, serif;
+            width: 180px;
+        }
+
+        /* Add to cart button */
+        .add-to-cart {
+            width: 100%;
+            padding: 14px;
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 13px;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: Georgia, serif;
+        }
+
+        .add-to-cart:hover {
+            background-color: #333;
         }
 
         /* --- FOOTER --- */
         footer {
-            border-top: 1px solid #eee;
-            padding: 60px 50px 20px;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 20px;
+            display: flex;
+            padding: 40px 60px;
+            gap: 40px;
+            border-top: 1px solid #ccc;
+            margin-top: 40px;
+            font-size: 13px;
         }
 
         .footer-logo {
-            font-weight: 900;
-            font-size: 20px;
+            font-size: 15px;
+            font-weight: bold;
+            line-height: 1.4;
+            width: 160px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
         }
 
         .footer-col h4 {
-            font-size: 14px;
+            font-size: 12px;
             color: #888;
-            margin-bottom: 20px;
+            margin: 0 0 8px 0;
+            font-weight: normal;
+            letter-spacing: 0.05em;
         }
 
         .footer-col ul {
             list-style: none;
             padding: 0;
-            font-size: 14px;
-            line-height: 2;
-            font-weight: bold;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-col ul li a,
+        .footer-col ul li {
+            text-decoration: none;
+            color: #333;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .footer-col ul li:hover {
+            text-decoration: underline;
         }
 
         .credits {
-            grid-column: 1 / -1;
+            width: 100%;
             text-align: center;
-            font-size: 10px;
+            font-size: 11px;
             color: #aaa;
-            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding: 16px 0 0;
+            margin-top: 10px;
         }
+
     </style>
 </head>
-
 <body>
-    <header>
-        <div class="logo">Tanka Jahari's<br>T-Shirts</div>
-        <nav>
-            <ul>
-                <li><a href="../../../home.html">Home</a></li>
-                <li><a href="../design-page/design-page.html">Products</a></li>
-                <li><a href="../Our story page/Our story page.html">About Us</a></li>
-            </ul>
-        </nav>
-        <div class="header-right">
-            <button id="account-btn" class="account-btn">Login</button>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">Tanka Jahari's<br>T-Shirts</div>
+    <nav>
+        <ul>
+            <li><a href="../../../home.html">Home</a></li>
+            <li><a href="../design-page/design-page.html">Products</a></li>
+            <li><a href="../Our story page/Our story page.html">About Us</a></li>
+        </ul>
+    </nav>
+    <div class="header-right">
+        <button id="account-btn" class="account-btn">Login</button>
+    </div>
+</header>
+
+<!-- PRODUCT SECTION -->
+<div class="product-section">
+
+    <!-- LEFT: Shirt image -->
+    <div class="product-left">
+        <div class="shirt-container">
+            <img class="base" src="../../../asset/shirt-color/shirt-blue.png" alt="Shirt">
+            <img class="design" src="../../../asset/print-design/design-1.png" alt="Design">
         </div>
-    </header>
-    
-    <div class="shirt-container">
-        <img class="base" src="../../../asset/shirt-color/shirt-blue.png">
-        <img class="design" src="../../../asset/print-design/design-1.png">
     </div>
 
-    <!-- Display Shirt amount -->
-    <label for="count">In Stock: </label>
-    <span id="count">—</span>
-    <br>
+    <!-- RIGHT: Options -->
+    <div class="product-right">
 
-    <!-- Display Price -->
-    <label for="price">Price: </label>
-    <span id="price">—</span>
-    <br>
+        <!-- Stock -->
+        <p class="product-meta">
+            In Stock: <span id="count">—</span>
+        </p>
 
-    <!-- Quantity input -->
-    <label for="quantity">Quantity: </label>
-    <input id="quantity" type="number" value="1" min="1" max="999">
-    <br>
+        <!-- Price -->
+        <p class="product-price">
+            <span id="price">—</span>
+        </p>
 
-    <!-- Choosing size option -->
-    <label for="size">Size: </label>
-    <select name="size" id="size">
-        <option value="2XS">2XS</option>
-        <option value="XS">XS</option>
-        <option value="S">S</option>
-        <option value="M">M</option>
-        <option value="L">L</option>
-        <option value="XL" selected>XL</option>
-        <option value="2XL">2XL</option>
-        <option value="3XL">3XL</option>
-    </select>
-    <br>
-
-    <!-- Choosing color option -->
-    <label for="color">Color: </label>
-    <select name="color" id="color">
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="pink">Pink</option>
-        <option value="red">Red</option>
-    </select>
-    <br>
-
-    <!-- Choosing design option -->
-    <label for="design">Design: </label>
-    <select name="design" id="design">
-        <option value="Design-1">Design 1</option>
-        <option value="Design-2">Design 2</option>
-        <option value="Design-3">Design 3</option>
-        <option value="Design-4">Design 4</option>
-        <option value="Design-5">Design 5</option>
-        <option value="Design-6">Design 6</option>
-        <option value="Design-7">Design 7</option>
-        <option value="Design-8">Design 8</option>
-        <option value="Design-9">Design 9</option>
-    </select>
-    <br>
-
-    <!-- Submit button -->
-    <button id="submit">Add to Cart</button>
-
-    <footer>
-        <div class="footer-logo">Tanka Jahari's<br>T-Shirts</div>
-
-        <div class="footer-col">
-            <h4>Resources</h4>
-            <ul>
-                <li>Return Policy</li>
-                <li>Tanka Order</li>
-                <li>Tanka's Autobiography</li>
-            </ul>
+        <!-- Quantity -->
+        <div class="form-row">
+            <label for="quantity">Quantity</label>
+            <input id="quantity" type="number" value="1" min="1" max="999" />
         </div>
 
-        <div class="footer-col">
-            <h4>About</h4>
-            <ul>
-                <li>Our Story</li>
-                <li>Contact Us (Pls Don't)</li>
-            </ul>
+        <!-- Size -->
+        <div class="form-row">
+            <label for="size">Size</label>
+            <select name="size" id="size">
+                <option value="2XS">2XS</option>
+                <option value="XS">XS</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="XL" selected>XL</option>
+                <option value="2XL">2XL</option>
+                <option value="3XL">3XL</option>
+            </select>
         </div>
 
-        <div class="credits">Designed by Rockstar Sol!</div>
-    </footer>
+        <!-- Color -->
+        <div class="form-row">
+            <label for="color">Color</label>
+            <select name="color" id="color">
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+                <option value="pink">Pink</option>
+                <option value="red">Red</option>
+            </select>
+        </div>
 
-    <script src="design-page.js"></script>
-    <script src="../header.js"></script>
+        <!-- Design -->
+        <div class="form-row">
+            <label for="design">Design</label>
+            <select name="design" id="design">
+                <option value="Design-1">Design 1</option>
+                <option value="Design-2">Design 2</option>
+                <option value="Design-3">Design 3</option>
+                <option value="Design-4">Design 4</option>
+                <option value="Design-5">Design 5</option>
+                <option value="Design-6">Design 6</option>
+                <option value="Design-7">Design 7</option>
+                <option value="Design-8">Design 8</option>
+                <option value="Design-9">Design 9</option>
+            </select>
+        </div>
+
+        <!-- Add to Cart -->
+        <button id="submit" class="add-to-cart">ADD TO CART</button>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-logo">Tanka Jahari's<br>T-Shirts</div>
+
+    <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+            <li>Return Policy</li>
+            <li>Tanka Order</li>
+            <li>Tanka's Autobiography</li>
+        </ul>
+    </div>
+
+    <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+            <li>Our Story</li>
+            <li>Contact Us (Pls Don't)</li>
+        </ul>
+    </div>
+
+    <div class="credits">Designed by Rockstar Sol!</div>
+</footer>
+
+<!-- Your original JS files stay exactly the same -->
+<script src="design-page.js"></script>
+<script src="../header.js"></script>
+
 </body>
 </html>
