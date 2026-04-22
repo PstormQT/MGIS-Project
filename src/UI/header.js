@@ -34,7 +34,61 @@
     const style = document.createElement('style');
     style.id = 'app-header-dynamic-styles';
     style.textContent = `
-      .header-right #account-btn {
+      header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 24px;
+        padding: 20px 50px !important;
+        background: #fff;
+        border-bottom: 1px solid #eee !important;
+      }
+
+      .logo {
+        font-size: 28px !important;
+        font-weight: 900 !important;
+        line-height: 1.1 !important;
+        color: #111;
+      }
+
+      nav ul {
+        display: flex !important;
+        list-style: none !important;
+        gap: 30px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      nav a {
+        text-decoration: none !important;
+        color: #111 !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+      }
+
+      nav a:hover {
+        opacity: 0.7;
+      }
+
+      .header-right {
+        display: flex !important;
+        align-items: center !important;
+        gap: 20px !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
+      }
+
+      .header-right a {
+        color: #111 !important;
+        text-decoration: none !important;
+      }
+
+      .header-right #cart-link {
+        color: #111 !important;
+      }
+
+      .header-right #account-btn,
+      .header-right #logout-link {
         border: 1px solid #111;
         background: #111;
         color: #fff;
@@ -48,10 +102,46 @@
         transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
       }
 
-      .header-right #account-btn:hover {
+      .header-right #account-btn:hover,
+      .header-right #logout-link:hover {
         background: #fff;
         color: #111;
         border-color: #111;
+      }
+
+      .header-right #dashboard-link {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column !important;
+          text-align: center;
+          padding: 16px 20px !important;
+        }
+
+        nav ul {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 14px 22px !important;
+        }
+
+        .header-right {
+          gap: 14px !important;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+      }
+
+      .header-right #account-btn {
+        margin: 0;
+      }
+
+      .header-right #account-btn:hover {
+        opacity: 1;
       }
     `;
 
@@ -64,49 +154,26 @@
     let header = document.querySelector('header');
     if (!header){
       header = document.createElement('header');
-      header.innerHTML = `
-        <div class="logo">Tanka Jahari's<br>T-Shirts</div>
-        <nav>
-          <ul>
-            <li><a href="${basePrefix}home.html">Home</a></li>
-            <li><a href="${basePrefix}UI/design-page/design-page.html">Products</a></li>
-            <li><a href="${basePrefix}UI/Our story page/Our story page.html">About Us</a></li>
-            <li><a href="${basePrefix}UI/Contact Us/Contact.html">Contact Us</a></li>
-          </ul>
-        </nav>
-        <div class="header-right">
-          <span id="search-placeholder">Search</span>
-          <a id="cart-link" href="${basePrefix}${cartPage}"><span id="cart-count">Cart (0)</span></a>
-          <button id="account-btn" class="account-btn">Login</button>
-        </div>
-      `;
       document.body.insertBefore(header, document.body.firstChild);
-    } else {
-      // ensure account button exists
-      let hr = header.querySelector('.header-right');
-      if(!hr){ hr = document.createElement('div'); hr.className='header-right'; header.appendChild(hr); }
-      let cartLink = hr.querySelector('#cart-link');
-      const cartCount = hr.querySelector('#cart-count');
-      if(!cartLink){
-        cartLink = document.createElement('a');
-        cartLink.id = 'cart-link';
-        cartLink.href = `${basePrefix}${cartPage}`;
-        if (cartCount) {
-          cartCount.parentNode.removeChild(cartCount);
-          cartLink.appendChild(cartCount);
-        } else {
-          cartLink.innerHTML = '<span id="cart-count">Cart (0)</span>';
-        }
-        const accountBtn = hr.querySelector('#account-btn');
-        if (accountBtn) hr.insertBefore(cartLink, accountBtn);
-        else hr.appendChild(cartLink);
-      } else {
-        cartLink.href = `${basePrefix}${cartPage}`;
-      }
-      if(!hr.querySelector('#account-btn')){
-        const btn = document.createElement('button'); btn.id='account-btn'; btn.className='account-btn'; btn.innerText='Login'; hr.appendChild(btn);
-      }
     }
+
+    // Normalize all pages to one shared header structure.
+    header.innerHTML = `
+      <div class="logo">Tanka Jahari's<br>T-Shirts</div>
+      <nav>
+        <ul>
+          <li><a href="${basePrefix}home.html">Home</a></li>
+          <li><a href="${basePrefix}UI/design-page/design-page.html">Products</a></li>
+          <li><a href="${basePrefix}UI/Our story page/Our story page.html">About Us</a></li>
+          <li><a href="${basePrefix}UI/Contact Us/Contact.html">Contact Us</a></li>
+        </ul>
+      </nav>
+      <div class="header-right">
+        <span id="search-placeholder">Search</span>
+        <a id="cart-link" href="${basePrefix}${cartPage}"><span id="cart-count">Cart (0)</span></a>
+        <button id="account-btn" class="account-btn">Login</button>
+      </div>
+    `;
 
     const accountBtn = document.getElementById('account-btn');
     const cartCountEl = document.getElementById('cart-count');
@@ -121,6 +188,8 @@
           
           const dashLink = document.getElementById('dashboard-link');
           if (dashLink) dashLink.remove();
+          const logoutLink = document.getElementById('logout-link');
+          if (logoutLink) logoutLink.remove();
         } else {
           const data = await res.json();
           if (data && data.success){
@@ -158,6 +227,8 @@
             
             const dashLink = document.getElementById('dashboard-link');
             if (dashLink) dashLink.remove();
+            const logoutLink = document.getElementById('logout-link');
+            if (logoutLink) logoutLink.remove();
           }
         }
       }catch(err){
@@ -168,6 +239,8 @@
         
         const dashLink = document.getElementById('dashboard-link');
         if (dashLink) dashLink.remove();
+        const logoutLink = document.getElementById('logout-link');
+        if (logoutLink) logoutLink.remove();
       }
     }
 
