@@ -28,7 +28,39 @@
     try{ const r = await fetch(path, opts); return r; } catch(e){ throw e; }
   }
 
+  function ensureHeaderStyles(){
+    if (document.getElementById('app-header-dynamic-styles')) return;
+
+    const style = document.createElement('style');
+    style.id = 'app-header-dynamic-styles';
+    style.textContent = `
+      .header-right #account-btn {
+        border: 1px solid #111;
+        background: #111;
+        color: #fff;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-transform: uppercase;
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      }
+
+      .header-right #account-btn:hover {
+        background: #fff;
+        color: #111;
+        border-color: #111;
+      }
+    `;
+
+    document.head.appendChild(style);
+  }
+
   async function initHeader(){
+    ensureHeaderStyles();
+
     let header = document.querySelector('header');
     if (!header){
       header = document.createElement('header');
