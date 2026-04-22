@@ -39,6 +39,7 @@
             <li><a href="${basePrefix}home.html">Home</a></li>
             <li><a href="${basePrefix}UI/design-page/design-page.html">Products</a></li>
             <li><a href="${basePrefix}UI/Our story page/Our story page.html">About Us</a></li>
+            <li><a href="${basePrefix}UI/Contact Us/Contact.html">Contact Us</a></li>
           </ul>
         </nav>
         <div class="header-right">

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tanka Jahari - Home</title>
     <style>
-        /* BASE RESET */
         * { box-sizing: border-box; }
         body {
             font-family: sans-serif;
@@ -15,7 +14,6 @@
             color: black;
         }
 
-        /* HEADER */
         header {
             display: flex;
             justify-content: space-between;
@@ -27,8 +25,8 @@
         nav ul { display: flex; list-style: none; gap: 30px; font-weight: bold; margin: 0; padding: 0; }
         nav a { text-decoration: none; color: black; font-size: 14px; }
         .header-right { display: flex; gap: 30px; font-weight: bold; font-size: 14px; }
+        .header-right a { color: black; text-decoration: none; }
 
-        /* HERO SECTION */
         .top-section {
             display: flex;
             padding: 80px 50px;
@@ -40,20 +38,23 @@
         .left-column h1 { font-family: serif; font-size: 52px; margin: 0 0 20px 0; line-height: 1.1; }
         .left-column p { font-size: 18px; margin-bottom: 30px; }
 
-        .shop-button button {
+        .shop-button {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .shop-button a {
             background: black;
             color: white;
-            padding: 18px 45px;
-            border: none;
+            padding: 18px 32px;
+            text-decoration: none;
             font-weight: bold;
-            cursor: pointer;
             text-transform: uppercase;
         }
 
         .right-column { flex: 1; text-align: center; }
         .right-column img { max-width: 80%; height: auto; }
 
-        /* PRODUCT GRID */
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -70,32 +71,29 @@
         .card img { width: 100%; max-width: 200px; margin-bottom: 20px; }
         .card h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* NEWSLETTER */
         .newsletter {
             padding: 100px 50px;
             text-align: center;
         }
         .newsletter h2 { font-family: serif; font-size: 32px; margin-bottom: 20px; }
+        .newsletter p { max-width: 620px; margin: 0 auto 24px; }
         .newsletter-form { display: flex; justify-content: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
         .newsletter-form a { background: black; color: white; border: 2px solid black; padding: 15px 30px; font-weight: bold; cursor: pointer; text-decoration: none; }
 
-        /* FOOTER */
         footer {
             padding: 60px 50px;
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
+            grid-template-columns: 1fr;
+            justify-items: center;
             border-top: 1px solid #eee;
+            text-align: center;
         }
         .footer-logo { font-weight: 900; font-size: 20px; }
-        .footer-col h4 { font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 20px; }
-        .footer-col ul { list-style: none; padding: 0; line-height: 2; font-weight: bold; font-size: 14px; }
-        .credits { grid-column: 1 / -1; text-align: center; font-size: 10px; color: #aaa; margin-top: 40px; }
+        .credits { font-size: 10px; color: #aaa; margin-top: 20px; }
 
-        /* MOBILE */
         @media (max-width: 768px) {
-            .top-section, footer { flex-direction: column; text-align: center; }
+            .top-section { flex-direction: column; text-align: center; }
             .newsletter-form { flex-direction: column; align-items: center; gap: 10px; }
-            footer { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -108,6 +106,7 @@
             <li><a href="./home.html">Home</a></li>
             <li><a href="./src/UI/design-page/design-page.html">Products</a></li>
             <li><a href="./src/UI/Our story page/Our story page.html">About Us</a></li>
+            <li><a href="./src/UI/Contact Us/Contact.html">Contact Us</a></li>
         </ul>
     </nav>
     <div class="header-right">
@@ -121,47 +120,50 @@
     <section class="top-section">
         <div class="left-column">
             <h1>Find the perfect shirt you <i>definitely</i> didn't order.</h1>
-            <a href="./src/UI/design-page/design-page.html">Shop All Items</a>
-            <a href="./src/UI/Contact Us/Contact.html">Contact Us</a>
-                <button onclick="window.location.href='./src/UI/design-page/design-page.html'">Shop Now</button>
+            <p>Beautiful shirts with concerning images.</p>
+            <div class="shop-button">
+                <a href="./src/UI/design-page/design-page.html">Shop All Items</a>
+                <a href="./src/UI/Contact Us/Contact.html">Contact Us</a>
             </div>
         </div>
         <div class="right-column">
             <img src="asset/print-design/design-1.png" alt="Hero Shirt">
         </div>
-    <div class="credits">Designed by Rockstar Sol!</div>
-            <h2>Unsolicited Pink</h2>
+    </section>
 
-<script src="./src/UI/header.js"></script>
-</body>
-</html>
+    <section class="products">
+        <a href="./src/UI/design-page/design-page.html" class="card">
+            <img src="asset/shirt-color/shirt-blue.png" alt="Blue">
+            <h2>The Standard Blue</h2>
+            <p style="font-weight:bold; font-size:12px; text-decoration:underline;">Shop Now</p>
+        </a>
+        <a href="./src/UI/design-page/design-page.html" class="card">
+            <img src="asset/shirt-color/shirt-green.png" alt="Green">
+            <h2>The Green Mistake</h2>
+            <p style="font-weight:bold; font-size:12px; text-decoration:underline;">Shop Now</p>
+        </a>
+        <a href="./src/UI/design-page/design-page.html" class="card">
+            <img src="asset/shirt-color/shirt-pink.png" alt="Pink">
+            <h2>Unsolicited Pink</h2>
             <p style="font-weight:bold; font-size:12px; text-decoration:underline;">Shop Now</p>
         </a>
     </section>
 
     <section class="newsletter">
         <h2>Pre-stained shirts from Tanka's wardrobe.</h2>
+        <p>Stay updated with new drops and announcements, or talk directly to Tanka Jahari through the contact page.</p>
         <div class="newsletter-form">
-            <input type="email" placeholder="Email Address">
-            <button>Subscribe</button>
+            <a href="./src/UI/design-page/design-page.html">Shop All Items</a>
+            <a href="./src/UI/Contact Us/Contact.html">Contact Us</a>
         </div>
     </section>
 </main>
 
 <footer>
     <div class="footer-logo">Tanka Jahari's<br>T-Shirts</div>
-    <div class="footer-col">
-        <h4>Resources</h4>
-        <ul>
-            <li>Return Policy</li>
-            <li>Tanka Order</li>
-        </ul>
-    </div>
-    <div class="footer-col">
-        <h4>About</h4>
-        <ul>
-            <li>Our Story</li>
-            <li>Contact Us</li>
-        </ul>
-    </div>
-    <div class="
+    <div class="credits">Designed by Rockstar Sol!</div>
+</footer>
+
+<script src="./src/UI/header.js"></script>
+</body>
+</html>
