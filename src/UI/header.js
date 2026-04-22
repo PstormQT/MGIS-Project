@@ -2,6 +2,7 @@
   // Detect nesting depth and construct proper path prefixes
   const pathname = window.location.pathname;
   const isHomePage = pathname.endsWith('home.html') || pathname.endsWith('/') || !pathname.includes('/src/');
+  const cartPage = 'UI/dashboard/dashboard/dashboard.html';
   
   let basePrefix, apiPrefix;
   
@@ -42,7 +43,7 @@
         </nav>
         <div class="header-right">
           <span id="search-placeholder">Search</span>
-          <a id="cart-link" href="${basePrefix}UI/dashboard/dashboard/dashboard.html"><span id="cart-count">Cart (0)</span></a>
+          <a id="cart-link" href="${basePrefix}${cartPage}"><span id="cart-count">Cart (0)</span></a>
           <button id="account-btn" class="account-btn">Login</button>
         </div>
       `;
@@ -51,9 +52,23 @@
       // ensure account button exists
       let hr = header.querySelector('.header-right');
       if(!hr){ hr = document.createElement('div'); hr.className='header-right'; header.appendChild(hr); }
-      if(!hr.querySelector('#cart-count')){
-        const cartLink = document.createElement('a'); cartLink.id='cart-link'; cartLink.href=`${basePrefix}UI/dashboard/dashboard/dashboard.html`; cartLink.innerHTML='<span id="cart-count">Cart (0)</span>';
-        hr.appendChild(cartLink);
+      let cartLink = hr.querySelector('#cart-link');
+      const cartCount = hr.querySelector('#cart-count');
+      if(!cartLink){
+        cartLink = document.createElement('a');
+        cartLink.id = 'cart-link';
+        cartLink.href = `${basePrefix}${cartPage}`;
+        if (cartCount) {
+          cartCount.parentNode.removeChild(cartCount);
+          cartLink.appendChild(cartCount);
+        } else {
+          cartLink.innerHTML = '<span id="cart-count">Cart (0)</span>';
+        }
+        const accountBtn = hr.querySelector('#account-btn');
+        if (accountBtn) hr.insertBefore(cartLink, accountBtn);
+        else hr.appendChild(cartLink);
+      } else {
+        cartLink.href = `${basePrefix}${cartPage}`;
       }
       if(!hr.querySelector('#account-btn')){
         const btn = document.createElement('button'); btn.id='account-btn'; btn.className='account-btn'; btn.innerText='Login'; hr.appendChild(btn);
@@ -84,7 +99,7 @@
             if (!document.getElementById('dashboard-link')){
               const link = document.createElement('a'); 
               link.id='dashboard-link'; 
-              link.href=`${basePrefix}UI/dashboard/dashboard/dashboard.html`; 
+              link.href=`${basePrefix}${cartPage}`; 
               link.innerText='Dashboard';
               link.style.marginRight='8px';
               link.style.textDecoration='none';
@@ -140,8 +155,29 @@
       }catch(e){ console.debug('Cart refresh failed', e); }
     }
 
+    function simplifyFooter(){
+      const footer = document.querySelector('footer');
+      if (!footer || footer.dataset.footerSimplified === 'true') return;
+
+      footer.dataset.footerSimplified = 'true';
+      footer.querySelectorAll('.footer-col').forEach((column) => column.remove());
+      footer.style.gridTemplateColumns = '1fr';
+      footer.style.justifyItems = 'center';
+      footer.style.textAlign = 'center';
+
+      const logo = footer.querySelector('.footer-logo');
+      if (logo) logo.style.marginBottom = '12px';
+
+      const credits = footer.querySelector('.credits');
+      if (credits) {
+        credits.style.gridColumn = '1';
+        credits.style.marginTop = '12px';
+      }
+    }
+
     await refreshSession();
     await refreshCartCount();
+    simplifyFooter();
 
     window.__appHeader = { refreshSession, refreshCartCount };
   }

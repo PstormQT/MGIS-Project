@@ -3,10 +3,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     loadDashboard();
 
-    document.getElementById('logout-btn').addEventListener('click', function(e) {
-        e.preventDefault();
-        logout();
-    });
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            logout();
+        });
+    }
 });
 
 async function loadDashboard() {
@@ -15,7 +18,7 @@ async function loadDashboard() {
         const data = await response.json();
 
         if (!data.success) {
-            window.location.href = "../../../../home.html";
+            await loadGuestDashboard();
             return;
         }
 
@@ -25,6 +28,30 @@ async function loadDashboard() {
         console.error('Error loading dashboard:', error);
         alert('Error loading dashboard. Please try again.');
     }
+}
+
+async function loadGuestDashboard() {
+    const userSection = document.querySelector('.user-section');
+    if (userSection) {
+        userSection.innerHTML = `
+            <h2>Your Cart</h2>
+            <p>Sign in to view account details, or continue shopping with your current cart.</p>
+        `;
+    }
+
+    const accountMenuLink = document.querySelector('a[href="../../Account Menu/Menu.html"]');
+    if (accountMenuLink && accountMenuLink.parentElement) {
+        accountMenuLink.parentElement.remove();
+    }
+
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn && logoutBtn.parentElement) {
+        logoutBtn.parentElement.remove();
+    }
+
+    const guestCartResponse = await fetch('../../../backend/cart.php?action=view', { credentials: 'include' });
+    const guestCartData = await guestCartResponse.json();
+    displayCart(guestCartData.cart || []);
 }
 
 function displayUserInfo(user) {

@@ -76,9 +76,8 @@
             text-align: center;
         }
         .newsletter h2 { font-family: serif; font-size: 32px; margin-bottom: 20px; }
-        .newsletter-form { display: flex; justify-content: center; margin-top: 30px; }
-        .newsletter-form input { border: 2px solid black; padding: 15px; width: 300px; }
-        .newsletter-form button { background: black; color: white; border: 2px solid black; padding: 15px 30px; font-weight: bold; cursor: pointer; }
+        .newsletter-form { display: flex; justify-content: center; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+        .newsletter-form a { background: black; color: white; border: 2px solid black; padding: 15px 30px; font-weight: bold; cursor: pointer; text-decoration: none; }
 
         /* FOOTER */
         footer {
@@ -113,8 +112,8 @@
     </nav>
     <div class="header-right">
         <span>Search</span>
-        <span id="cart-count">Cart (0)</span>
-        <span>Login</span>
+        <a id="cart-link" href="./src/UI/dashboard/dashboard/dashboard.html"><span id="cart-count">Cart (0)</span></a>
+        <a href="./src/UI/login-page/login.html">Login</a>
     </div>
 </header>
 
@@ -122,30 +121,20 @@
     <section class="top-section">
         <div class="left-column">
             <h1>Find the perfect shirt you <i>definitely</i> didn't order.</h1>
-            <p>Beautiful shirts with concerning images.</p>
-            <div class="shop-button">
+            <a href="./src/UI/design-page/design-page.html">Shop All Items</a>
+            <a href="./src/UI/Contact Us/Contact.html">Contact Us</a>
                 <button onclick="window.location.href='./src/UI/design-page/design-page.html'">Shop Now</button>
             </div>
         </div>
         <div class="right-column">
             <img src="asset/print-design/design-1.png" alt="Hero Shirt">
         </div>
-    </section>
-
-    <section class="products">
-        <a href="./src/UI/design-page/design-page.html" class="card">
-            <img src="asset/shirt-color/shirt-blue.png" alt="Blue">
-            <h2>The Standard Blue</h2>
-            <p style="font-weight:bold; font-size:12px; text-decoration:underline;">Shop Now</p>
-        </a>
-        <a href="./src/UI/design-page/design-page.html" class="card">
-            <img src="asset/shirt-color/shirt-green.png" alt="Green">
-            <h2>The Green Mistake</h2>
-            <p style="font-weight:bold; font-size:12px; text-decoration:underline;">Shop Now</p>
-        </a>
-        <a href="./src/UI/design-page/design-page.html" class="card">
-            <img src="asset/shirt-color/shirt-pink.png" alt="Pink">
+    <div class="credits">Designed by Rockstar Sol!</div>
             <h2>Unsolicited Pink</h2>
+
+<script src="./src/UI/header.js"></script>
+</body>
+</html>
             <p style="font-weight:bold; font-size:12px; text-decoration:underline;">Shop Now</p>
         </a>
     </section>

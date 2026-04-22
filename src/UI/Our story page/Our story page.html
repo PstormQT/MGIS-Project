@@ -91,6 +91,8 @@
             padding: 10px 22px;
             border: none;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
         }
 
         /* --- STORY SECTION --- */
@@ -119,16 +121,12 @@
             width: 45%;
         }
 
-        .img-placeholder {
+        .story-image img {
             width: 100%;
             max-width: 280px;
             height: 340px;
-            background-color: #e0d8cc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 13px;
-            color: #888;
+            object-fit: cover;
+            display: block;
             border: 1px solid #ccc;
         }
 
@@ -139,18 +137,27 @@
             border-top: 1px solid #ccc;
         }
 
-        .newsletter input {
-            padding: 10px;
-            width: 260px;
-            border: 1px solid #333;
+        .newsletter p {
+            max-width: 620px;
+            margin: 0 auto 24px;
+            color: #444;
         }
 
-        .newsletter button {
+        .newsletter-actions {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter a {
             padding: 10px 18px;
             background-color: black;
             color: white;
             border: none;
             cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
         }
 
         /* --- FOOTER --- */
@@ -220,7 +227,7 @@
 
     <div class="right-column">
         <p>Explore our latest collection of unique and expressive designs.</p>
-        <button class="shop-btn">Shop All Items</button>
+        <a class="shop-btn" href="../design-page/design-page.html">Shop All Items</a>
     </div>
 
 </div>
@@ -235,19 +242,22 @@
         <p>Our mission is simple: create high-quality clothing that people actually want to wear — without overcomplicating it.</p>
 
         <p><i>"Style should be accessible, fun, and a reflection of who you are."</i></p>
+
+        <p>Every design in the shop is meant to feel a little strange, a little loud, and unmistakably Tanka.</p>
     </div>
 
     <div class="story-image">
-        <div class="img-placeholder">[ Add photo here ]</div>
+        <img src="../../../asset/print-design/design-1.png" alt="Featured Tanka Jahari design">
     </div>
 
 </div>
 
 <div class="newsletter">
-    <p>Stay updated with new drops and announcements</p>
-    <br>
-    <input type="email" placeholder="Enter your email" />
-    <button>Subscribe</button>
+    <p>Stay updated with new drops and announcements, or talk directly to Tanka Jahari through the contact page.</p>
+    <div class="newsletter-actions">
+        <a href="../design-page/design-page.html">Shop All Items</a>
+        <a href="../Contact Us/Contact.html">Contact Us</a>
+    </div>
 </div>
 
 <footer>

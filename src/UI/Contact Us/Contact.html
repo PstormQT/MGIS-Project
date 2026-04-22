@@ -137,27 +137,28 @@
       color: #444;
     }
 
-    .subscribe-box {
-      display: inline-flex;
-      width: 100%;
-      max-width: 500px;
+    .newsletter p {
+      max-width: 560px;
+      margin: 0 auto 24px;
+      color: #555;
     }
 
-    .email-input {
-      background-color: #eeeeee;
-      border: none;
-      padding: 15px;
-      flex-grow: 1;
-      font-size: 14px;
+    .newsletter-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
-    .subscribe-btn {
+    .newsletter-link {
       background-color: black;
       color: white;
       border: none;
-      padding: 0 30px;
+      padding: 12px 24px;
       font-weight: bold;
       cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
     }
 
     /* Footer Styling */
@@ -246,10 +247,11 @@
   </div>
 
   <div class="newsletter">
-    <h2>Get updates from Tanka Jahari!<br>Talk directly to Tanka Jahari!</h2>
-    <div class="subscribe-box">
-      <input type="email" placeholder="Enter your email here" class="email-input">
-      <button class="subscribe-btn">SUBSCRIBE</button>
+    <h2>Talk directly to Tanka Jahari!</h2>
+    <p>Use the form above for order issues, or head back to the shop if you still need to pick something out.</p>
+    <div class="newsletter-actions">
+      <a class="newsletter-link" href="../design-page/design-page.html">Shop All Items</a>
+      <a class="newsletter-link" href="../Our story page/Our story page.html">About Us</a>
     </div>
   </div>
 </div>
