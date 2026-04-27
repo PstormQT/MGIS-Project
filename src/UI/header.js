@@ -15,11 +15,14 @@
     if (uiMatch) {
       const afterUI = pathname.substring(uiMatch.index + uiMatch[0].length);
       const depth = (afterUI.match(/\//g) || []).length; // Count remaining slashes
-      srcPrefix = '../'.repeat(depth + 1); // +1 for the current file, lands at src/
-      rootPrefix = `${srcPrefix}../`;
+      // depth + 2: +1 for UI, +1 for src (to get to root)
+      rootPrefix = '../'.repeat(depth + 2);
+      // For srcPrefix, we go to /src folder (depth + 1)
+      srcPrefix = '../'.repeat(depth + 1);
     } else {
-      srcPrefix = '../../';
-      rootPrefix = '../../../';
+      // Fallback for pages not in /src/UI/
+      rootPrefix = '../';
+      srcPrefix = './src/';
     }
   }
   
