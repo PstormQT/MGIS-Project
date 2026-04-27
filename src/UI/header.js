@@ -15,10 +15,10 @@
     if (uiMatch) {
       const afterUI = pathname.substring(uiMatch.index + uiMatch[0].length);
       const depth = (afterUI.match(/\//g) || []).length; // Count remaining slashes
-      // depth + 2: +1 for UI, +1 for src (to get to root)
-      rootPrefix = '../'.repeat(depth + 2);
-      // For srcPrefix, we go to /src folder (depth + 1)
-      srcPrefix = '../'.repeat(depth + 1);
+      // depth + 3: current dir (1) + UI dir (1) + src dir (1) = 3
+      rootPrefix = '../'.repeat(depth + 3);
+      // For srcPrefix, we go to /src folder (depth + 2)
+      srcPrefix = '../'.repeat(depth + 2);
     } else {
       // Fallback for pages not in /src/UI/
       rootPrefix = '../';
