@@ -165,7 +165,7 @@
       <div class="logo">Tanka Jahari's<br>T-Shirts</div>
       <nav>
         <ul>
-          <li><a href="${rootPrefix}home.html">Home</a></li>
+          <li><a href="https://people.rit.edu/ptd7904/MGIS445/project/home.html">Home</a></li>
           <li><a href="${srcPrefix}UI/design-page/design-page.html">Products</a></li>
           <li><a href="${srcPrefix}UI/Our story page/Our story page.html">About Us</a></li>
           <li><a href="${srcPrefix}UI/Contact Us/Contact.html">Contact Us</a></li>
