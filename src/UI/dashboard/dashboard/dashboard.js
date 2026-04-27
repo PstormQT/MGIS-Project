@@ -157,5 +157,5 @@ async function logout() {
     try {
         await fetch('../../../backend/logout.php', { method: 'POST', credentials: 'include' });
     } catch(e) { /* ignore */ }
-    window.location.href = '../../../../home.html';
+    window.location.href = 'https://people.rit.edu/ptd7904/MGIS445/project/home.html';
 }
