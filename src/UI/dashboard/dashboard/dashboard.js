@@ -15,6 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
 async function loadDashboard() {
     try {
         const response = await fetch('../../../backend/dashboard.php', { credentials: 'include' });
+        if (!response.ok) {
+            await loadGuestDashboard();
+            return;
+        }
+
         const data = await response.json();
 
         if (!data.success) {
@@ -49,9 +54,19 @@ async function loadGuestDashboard() {
         logoutBtn.parentElement.remove();
     }
 
-    const guestCartResponse = await fetch('../../../backend/cart.php?action=view', { credentials: 'include' });
-    const guestCartData = await guestCartResponse.json();
-    displayCart(guestCartData.cart || []);
+    try {
+        const guestCartResponse = await fetch('../../../backend/cart.php?action=view', { credentials: 'include' });
+        if (!guestCartResponse.ok) {
+            displayCart([]);
+            return;
+        }
+
+        const guestCartData = await guestCartResponse.json();
+        displayCart(guestCartData.cart || []);
+    } catch (error) {
+        console.error('Error loading guest cart:', error);
+        displayCart([]);
+    }
 }
 
 function displayUserInfo(user) {
@@ -75,7 +90,10 @@ function displayCart(cartItems) {
     if (!cartItems || cartItems.length === 0) {
         cartContainer.style.display = 'none';
         emptyMessage.style.display = 'block';
-        document.getElementById('cart-count').textContent = 'Cart (0)';
+        const cartCountEl = document.getElementById('cart-count');
+        if (cartCountEl) {
+            cartCountEl.textContent = 'Cart (0)';
+        }
         return;
     }
 
@@ -102,7 +120,10 @@ function displayCart(cartItems) {
         itemCount += parseInt(item.Quantity);
     });
 
-    document.getElementById('cart-count').textContent = `Cart (${itemCount})`;
+    const cartCountEl = document.getElementById('cart-count');
+    if (cartCountEl) {
+        cartCountEl.textContent = `Cart (${itemCount})`;
+    }
 
     cartSummary.innerHTML = `
         <div class="summary-row">

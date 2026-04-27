@@ -4,22 +4,22 @@
   const isHomePage = pathname.endsWith('home.html') || pathname.endsWith('/') || !pathname.includes('/src/');
   const cartPage = 'UI/dashboard/dashboard/dashboard.html';
   
-  let basePrefix, apiPrefix;
+  let rootPrefix, srcPrefix;
   
   if (isHomePage) {
-    basePrefix = './src/';
-    apiPrefix = './src/';
+    rootPrefix = './';
+    srcPrefix = './src/';
   } else {
     // Count the number of directory levels after '/src/UI/'
     const uiMatch = pathname.match(/\/src\/UI\//);
     if (uiMatch) {
       const afterUI = pathname.substring(uiMatch.index + uiMatch[0].length);
       const depth = (afterUI.match(/\//g) || []).length; // Count remaining slashes
-      basePrefix = '../'.repeat(depth + 1); // +1 for the current file
-      apiPrefix = '../'.repeat(depth + 1); // Go up to src/ level (backend is at src/backend/)
+      srcPrefix = '../'.repeat(depth + 1); // +1 for the current file, lands at src/
+      rootPrefix = `${srcPrefix}../`;
     } else {
-      basePrefix = '../../';
-      apiPrefix = '../../';
+      srcPrefix = '../../';
+      rootPrefix = '../../../';
     }
   }
   
@@ -162,29 +162,32 @@
       <div class="logo">Tanka Jahari's<br>T-Shirts</div>
       <nav>
         <ul>
-          <li><a href="${basePrefix}home.html">Home</a></li>
-          <li><a href="${basePrefix}UI/design-page/design-page.html">Products</a></li>
-          <li><a href="${basePrefix}UI/Our story page/Our story page.html">About Us</a></li>
-          <li><a href="${basePrefix}UI/Contact Us/Contact.html">Contact Us</a></li>
+          <li><a href="${rootPrefix}home.html">Home</a></li>
+          <li><a href="${srcPrefix}UI/design-page/design-page.html">Products</a></li>
+          <li><a href="${srcPrefix}UI/Our story page/Our story page.html">About Us</a></li>
+          <li><a href="${srcPrefix}UI/Contact Us/Contact.html">Contact Us</a></li>
         </ul>
       </nav>
       <div class="header-right">
         <span id="search-placeholder">Search</span>
-        <a id="cart-link" href="${basePrefix}${cartPage}"><span id="cart-count">Cart (0)</span></a>
+        <span id="login-status">Guest</span>
+        <a id="cart-link" href="${srcPrefix}${cartPage}"><span id="cart-count">Cart (0)</span></a>
         <button id="account-btn" class="account-btn">Login</button>
       </div>
     `;
 
     const accountBtn = document.getElementById('account-btn');
     const cartCountEl = document.getElementById('cart-count');
+    const loginStatusEl = document.getElementById('login-status');
 
     async function refreshSession(){
       try{
-        const res = await fetchJson(`${apiPrefix}backend/dashboard.php`);
+        const res = await fetchJson(`${srcPrefix}backend/dashboard.php`);
         if (!res.ok){
+          if (loginStatusEl) loginStatusEl.innerText = 'Guest';
           accountBtn.style.display = 'block';
           accountBtn.innerText = 'Login';
-          accountBtn.onclick = ()=> { window.location.href = `${basePrefix}UI/login-page/login.html`; };
+          accountBtn.onclick = ()=> { window.location.href = `${srcPrefix}UI/login-page/login.html`; };
           
           const dashLink = document.getElementById('dashboard-link');
           if (dashLink) dashLink.remove();
@@ -194,6 +197,7 @@
           const data = await res.json();
           if (data && data.success){
             const uname = data.user && data.user.Username ? data.user.Username : 'Account';
+            if (loginStatusEl) loginStatusEl.innerText = `Signed in: ${uname}`;
             
             // Replace button with dashboard link
             accountBtn.style.display = 'none';
@@ -201,7 +205,7 @@
             if (!document.getElementById('dashboard-link')){
               const link = document.createElement('a'); 
               link.id='dashboard-link'; 
-              link.href=`${basePrefix}${cartPage}`; 
+              link.href=`${srcPrefix}${cartPage}`; 
               link.innerText='Dashboard';
               link.style.marginRight='8px';
               link.style.textDecoration='none';
@@ -214,16 +218,17 @@
               l.style.marginLeft='0px';
               l.onclick = async ()=>{
                 try{
-                  const r = await fetchJson(`${apiPrefix}backend/logout.php`, { method: 'POST' });
+                  const r = await fetchJson(`${srcPrefix}backend/logout.php`, { method: 'POST' });
                   if (r.ok){ location.reload(); }
                 }catch(e){ console.error('Logout failed', e); location.reload(); }
               };
               accountBtn.parentNode.appendChild(l);
             }
           } else {
+            if (loginStatusEl) loginStatusEl.innerText = 'Guest';
             accountBtn.style.display = 'block';
             accountBtn.innerText = 'Login';
-            accountBtn.onclick = ()=> { window.location.href = `${basePrefix}UI/login-page/login.html`; };
+            accountBtn.onclick = ()=> { window.location.href = `${srcPrefix}UI/login-page/login.html`; };
             
             const dashLink = document.getElementById('dashboard-link');
             if (dashLink) dashLink.remove();
@@ -233,9 +238,10 @@
         }
       }catch(err){
         console.debug('Session check failed', err);
+        if (loginStatusEl) loginStatusEl.innerText = 'Guest';
         accountBtn.style.display = 'block';
         accountBtn.innerText = 'Login';
-        accountBtn.onclick = ()=> { window.location.href = `${basePrefix}UI/login-page/login.html`; };
+        accountBtn.onclick = ()=> { window.location.href = `${srcPrefix}UI/login-page/login.html`; };
         
         const dashLink = document.getElementById('dashboard-link');
         if (dashLink) dashLink.remove();
@@ -246,7 +252,7 @@
 
     async function refreshCartCount(){
       try{
-        const res = await fetchJson(`${apiPrefix}backend/cart.php?action=view`);
+        const res = await fetchJson(`${srcPrefix}backend/cart.php?action=view`);
         if (!res.ok) return;
         const data = await res.json();
         if (data && data.cart){
