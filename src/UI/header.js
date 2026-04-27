@@ -8,7 +8,7 @@
   
   if (isHomePage) {
     rootPrefix = './';
-    srcPrefix = './src/';
+    srcPrefix = './';
   } else {
     // Count the number of directory levels after '/src/UI/'
     const uiMatch = pathname.match(/\/src\/UI\//);
@@ -22,7 +22,7 @@
     } else {
       // Fallback for pages not in /src/UI/
       rootPrefix = '../';
-      srcPrefix = './src/';
+      srcPrefix = './';
     }
   }
   
