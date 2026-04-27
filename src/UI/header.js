@@ -8,21 +8,18 @@
   
   if (isHomePage) {
     rootPrefix = './';
-    srcPrefix = './';
+    srcPrefix = './src/';
   } else {
     // Count the number of directory levels after '/src/UI/'
     const uiMatch = pathname.match(/\/src\/UI\//);
     if (uiMatch) {
       const afterUI = pathname.substring(uiMatch.index + uiMatch[0].length);
       const depth = (afterUI.match(/\//g) || []).length; // Count remaining slashes
-      // depth + 3: current dir (1) + UI dir (1) + src dir (1) = 3
-      rootPrefix = '../'.repeat(depth + 3);
-      // For srcPrefix, we go to /src folder (depth + 2)
-      srcPrefix = '../'.repeat(depth + 2);
+      srcPrefix = '../'.repeat(depth + 1); // +1 for the current file, lands at src/
+      rootPrefix = `${srcPrefix}../`;
     } else {
-      // Fallback for pages not in /src/UI/
-      rootPrefix = '../';
-      srcPrefix = './';
+      srcPrefix = '../../';
+      rootPrefix = '../../../';
     }
   }
   
